@@ -87,6 +87,26 @@ public class EncounterMap : MonoBehaviour
                 col = 0;
             }
         }
-        this.gameObject.transform.position = new Vector2((float)(-maxCol/2) + .5f, (float)(-row/2) + .5f);
+        float newX = 0;
+        float newY = 0;
+
+        if (maxCol % 2 == 0)
+        {
+            newX = (float)(-maxCol / 2) + .5f;
+        }
+        else
+        {
+            newX = (float)(-maxCol / 2);
+        }
+
+        if (row+1 % 2 == 0)
+        {
+            newY = (float)(-row / 2) + .5f;
+        }
+        else
+        {
+            newY = (float)(-row / 2);
+        }
+        this.gameObject.transform.position = new Vector2(newX, newY);
     }
 }

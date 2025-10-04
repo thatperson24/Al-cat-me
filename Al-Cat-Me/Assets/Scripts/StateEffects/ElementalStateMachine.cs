@@ -1,3 +1,5 @@
+using System;
+
 namespace ElementalStateMachine
 {
     public enum ElementalState
@@ -10,13 +12,18 @@ namespace ElementalStateMachine
         X
     }
 
-    public class ElementalStateMachine(ElementalState initialState)
+    public class ElementalStateMachine
     {
         private readonly int FIRE_BASE_DAMAGE_OVER_TIME = 20;
 
-        public readonly ElementalState CurrentState = initialState;
-        private readonly int FireDuration = 0;
-        private readonly int FireIntensity = 1;
+        public ElementalState CurrentState;
+        private int FireDuration = 0;
+        private int FireIntensity = 1;
+
+        public ElementalStateMachine(ElementalState initialState)
+        {
+            CurrentState = initialState;
+        }
 
         public ElementalState ApplyStateTransition(ElementalState action)
         {
@@ -54,10 +61,8 @@ namespace ElementalStateMachine
                             }
                             break;
                         default:
-                            throw InvalidEnumArgumentException(
-                                "Unhandled state applied to Fire",
-                                action,
-                                typeof(ElementalState));
+                            HandleUnrecognizedAction(action);
+                            break;
                     }
                     break;
                 case ElementalState.Lightning:
@@ -79,11 +84,9 @@ namespace ElementalStateMachine
                             // Does nothing
                             CurrentState = ElementalState.X;
                             break;
-                        case default:
-                            throw InvalidEnumArgumentException(
-                                "Unhandled state applied to Lightning",
-                                action,
-                                typeof(ElementalState));
+                        default:
+                            HandleUnrecognizedAction(action);
+                            break;
                     }
                     break;
                 case ElementalState.Water:
@@ -117,11 +120,9 @@ namespace ElementalStateMachine
                             // Remain slowed by the water
                             CurrentState = ElementalState.Water;
                             break;
-                        case default:
-                            throw InvalidEnumArgumentException(
-                                "Unhandled state applied to Water",
-                                action,
-                                typeof(ElementalState));
+                        default:
+                            HandleUnrecognizedAction(action);
+                            break;
                     }
                     break;
                 case ElementalState.Air:
@@ -140,11 +141,9 @@ namespace ElementalStateMachine
                             // Applies the next state based on action
                             CurrentState = action;
                             break;
-                        case default:
-                            throw InvalidEnumArgumentException(
-                                "Unhandled state applied to Air",
-                                action,
-                                typeof(ElementalState));
+                        default:
+                            HandleUnrecognizedAction(action);
+                            break;
                     }
                     break;
                 case ElementalState.Earth:
@@ -174,11 +173,9 @@ namespace ElementalStateMachine
                             // Continue earth effect
                             CurrentState = ElementalState.Earth;
                             break;
-                        case default:
-                            throw InvalidEnumArgumentException(
-                                "Unhandled state applied to Earth",
-                                action,
-                                typeof(ElementalState));
+                        default:
+                            HandleUnrecognizedAction(action);
+                            break;
                     }
                     break;
                 case ElementalState.X:
@@ -209,40 +206,40 @@ namespace ElementalStateMachine
                             // Do nothing
                             CurrentState = ElementalState.X;
                             break;
-                        case default:
-                            throw InvalidEnumArgumentException(
-                                "Unhandled state applied to X",
-                                action,
-                                typeof(ElementalState));
+                        default:
+                            HandleUnrecognizedAction(action);
+                            break;
                     }
                     break;
-                case default:
-                    throw InvalidEnumArgumentException(
-                        "Unhandled current state",
-                        CurrentState,
-                        typeof(ElementalState));
+                default:
+                    throw new NotImplementedException($"Unhandled current state: ${CurrentState}");
             }
 
             // Return updated state
             return CurrentState;
         }
 
-        private StartFire(int numTurns = 1)
+        private void StartFire(int numTurns = 1)
         {
             FireDuration = numTurns;
             FireIntensity = 1;
         }
 
-        private ContinueFire(int numTurns, int increaseIntensityBy = 0)
+        private void ContinueFire(int numTurns, int increaseIntensityBy = 0)
         {
             FireDuration += numTurns;
             FireIntensity += increaseIntensityBy;
         }
 
-        private ResetFire()
+        private void ResetFire()
         {
             FireDuration = 0;
             FireIntensity = 1;
+        }
+
+        private void HandleUnrecognizedAction(ElementalState action)
+        {
+            throw new NotImplementedException($"Unhandled state applied to ${CurrentState}: ${action}");
         }
 
         // Ideas for additional behaviors

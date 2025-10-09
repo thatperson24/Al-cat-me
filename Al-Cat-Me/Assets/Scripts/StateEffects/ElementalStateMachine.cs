@@ -9,7 +9,7 @@ namespace Assets.Scripts.StateEffects
         Water,
         Air,
         Earth,
-        X
+        X,
     }
 
     public class ElementalStateMachine
@@ -20,7 +20,7 @@ namespace Assets.Scripts.StateEffects
         private int FireDuration = 0;
         private int FireIntensity = 1;
 
-        public ElementalStateMachine(ElementalState initialState)
+        public ElementalStateMachine(ElementalState initialState = ElementalState.X)
         {
             CurrentState = initialState;
         }

@@ -39,34 +39,7 @@ public class EncounterMap : MonoBehaviour
             if (mapData[i] != 'X')
             {
                 GameObject newTile = Instantiate(MapTilePrefab, this.gameObject.transform);
-                newTile.GetComponent<MapTile>().SetState(mapData[i]);
-                switch (mapData[i])
-                {
-                    case MapTile.TileState.UNOCCUPIED:
-                        newTile.GetComponent<SpriteRenderer>().color = Color.green;
-                        break;
-                    case MapTile.TileState.OCCUPIED:
-                        newTile.GetComponent<SpriteRenderer>().color = Color.yellow;
-                        break;
-                    case MapTile.TileState.BURNING:
-                        newTile.GetComponent<SpriteRenderer>().color = Color.red;
-                        break;
-                    case MapTile.TileState.TERRAIN:
-                        newTile.GetComponent<SpriteRenderer>().color = Color.brown;
-                        break;
-                    case MapTile.TileState.MUDDY:
-                        newTile.GetComponent<SpriteRenderer>().color = Color.black;
-                        break;
-                    case MapTile.TileState.WET:
-                        newTile.GetComponent<SpriteRenderer>().color = Color.blue;
-                        break;
-                    case MapTile.TileState.ELECTRIFIED:
-                        newTile.GetComponent<SpriteRenderer>().color = Color.purple;
-                        break;
-                    default:
-                        Destroy(newTile);
-                        break;
-                }
+                newTile.GetComponent<MapTile>().SetInitialState(mapData[i]);
                 newTile.name = "Tile: Col-" + col + " row-" + row;
                 newTile.transform.position = new Vector2(col, row);
                 col++;

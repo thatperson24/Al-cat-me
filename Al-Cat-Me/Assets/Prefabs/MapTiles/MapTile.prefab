@@ -104,3 +104,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapTile
   state: 85
+  spriteRenderer: {fileID: 6725146292767854338}

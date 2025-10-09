@@ -9,7 +9,7 @@ public class Ingredient : MonoBehaviour
     [SerializeField] private int blocking;
     [SerializeField] private int delay;
 
-    public int[] getStats()
+    public int[] GetStats()
     {
         int[] stats = { damage, range, aoe, castType, blocking, delay };
         return stats;

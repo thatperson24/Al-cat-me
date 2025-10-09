@@ -39,34 +39,28 @@ public class EncounterMap : MonoBehaviour
             if (mapData[i] != 'X')
             {
                 GameObject newTile = Instantiate(MapTilePrefab, this.gameObject.transform);
+                newTile.GetComponent<MapTile>().SetState(mapData[i]);
                 switch (mapData[i])
                 {
-                    case 'U':
-                        newTile.GetComponent<MapTile>().SetState(MapTile.TileState.UNOCCUPIED);
+                    case MapTile.TileState.UNOCCUPIED:
                         newTile.GetComponent<SpriteRenderer>().color = Color.green;
                         break;
-                    case 'O':
-                        newTile.GetComponent<MapTile>().SetState(MapTile.TileState.OCCUPIED);
+                    case MapTile.TileState.OCCUPIED:
                         newTile.GetComponent<SpriteRenderer>().color = Color.yellow;
                         break;
-                    case 'B':
-                        newTile.GetComponent<MapTile>().SetState(MapTile.TileState.BURNING);
+                    case MapTile.TileState.BURNING:
                         newTile.GetComponent<SpriteRenderer>().color = Color.red;
                         break;
-                    case 'T':
-                        newTile.GetComponent<MapTile>().SetState(MapTile.TileState.TERRAIN);
+                    case MapTile.TileState.TERRAIN:
                         newTile.GetComponent<SpriteRenderer>().color = Color.brown;
                         break;
-                    case 'M':
-                        newTile.GetComponent<MapTile>().SetState(MapTile.TileState.MUDDY);
+                    case MapTile.TileState.MUDDY:
                         newTile.GetComponent<SpriteRenderer>().color = Color.black;
                         break;
-                    case 'W':
-                        newTile.GetComponent<MapTile>().SetState(MapTile.TileState.WET);
+                    case MapTile.TileState.WET:
                         newTile.GetComponent<SpriteRenderer>().color = Color.blue;
                         break;
-                    case 'E':
-                        newTile.GetComponent<MapTile>().SetState(MapTile.TileState.ELECTRIFIED);
+                    case MapTile.TileState.ELECTRIFIED:
                         newTile.GetComponent<SpriteRenderer>().color = Color.purple;
                         break;
                     default:
@@ -87,8 +81,8 @@ public class EncounterMap : MonoBehaviour
                 col = 0;
             }
         }
-        float newX = 0;
-        float newY = 0;
+        float newX;
+        float newY;
 
         if (maxCol % 2 == 0)
         {
@@ -99,7 +93,7 @@ public class EncounterMap : MonoBehaviour
             newX = (float)(-maxCol / 2);
         }
 
-        if (row+1 % 2 == 0)
+        if (row + 1 % 2 == 0)
         {
             newY = (float)(-row / 2) + .5f;
         }

@@ -1,6 +1,6 @@
 using System;
 
-namespace ElementalStateMachine
+namespace Assets.Scripts.StateEffects
 {
     public enum ElementalState
     {

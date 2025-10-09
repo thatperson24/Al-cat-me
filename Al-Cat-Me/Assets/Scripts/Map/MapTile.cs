@@ -2,18 +2,18 @@ using UnityEngine;
 
 public class MapTile : MonoBehaviour
 {
-    public enum TileState
+    public static class TileState
     {
-        UNOCCUPIED,
-        OCCUPIED,
-        BURNING,
-        TERRAIN,
-        MUDDY,
-        WET,
-        ELECTRIFIED
+        public const char UNOCCUPIED = 'U';
+        public const char OCCUPIED = 'O';
+        public const char BURNING = 'B';
+        public const char TERRAIN = 'T';
+        public const char MUDDY = 'M';
+        public const char WET = 'W';
+        public const char ELECTRIFIED = 'E';
     }
 
-    [SerializeField] private TileState state;
+    [SerializeField] private char state;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,7 +26,7 @@ public class MapTile : MonoBehaviour
 
     }
 
-    public void SetState(TileState newState)
+    public void SetState(char newState)
     {
         state = newState;
     }

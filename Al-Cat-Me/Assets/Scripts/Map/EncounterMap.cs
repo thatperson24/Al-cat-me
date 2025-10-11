@@ -33,7 +33,7 @@ public class EncounterMap : MonoBehaviour
     */
     private void GenerateMap()
     {
-        int row = 0, col = 0, maxCol = 0;
+        int row = 0, col = 0, maxCol = 10;
         for (int i = 0; i < mapData.Length; i++)
         {
             if (mapData[i] != 'X')

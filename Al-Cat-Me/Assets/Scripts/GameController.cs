@@ -6,7 +6,7 @@ public class GameController : MonoBehaviour
     private int gold;
     private List<Ingredient> ingredients;
     private List<Spell> deck;
-    private OverMap overMap;
+    private Overmap overMap;
 
     private void Start()
     {
@@ -49,11 +49,11 @@ public class GameController : MonoBehaviour
     //      OverMap class (or whatever you call it) will be responsible for manipulating its own data to transition between the two states since it contains that data
     public void callEncounter()
     {
-        overMap.selectEncounter(1);
+        // overMap.selectEncounter(1);
     }
     
     public void endEncounter()
     {
-        overMap.finishEncounter();
+        // overMap.finishEncounter();
     }
 }

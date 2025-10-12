@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Mono.Cecil;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 
 public class GameController : MonoBehaviour
 {
@@ -12,7 +14,7 @@ public class GameController : MonoBehaviour
     {
         gold = 0;
         ingredients = new List<Ingredient>();
-        deck = new List<Spell>();
+        GenerateBasicDeck();
     }
 
     void Update()
@@ -55,5 +57,29 @@ public class GameController : MonoBehaviour
     public void endEncounter()
     {
         // overMap.finishEncounter();
+    }
+
+    private void GenerateBasicDeck()
+    {
+        deck = new List<Spell>();
+        for (int i = 0; i < 10; i++)
+        {
+            Spell newSpell = new Spell();
+            int[] offenseStats = { 3, 3, 0, 0, 0, 0 };
+            newSpell.SetStats("Blast", offenseStats);
+            deck.Add(newSpell);
+            newSpell = new Spell();
+            int[] defenseStats = { 0, 0, 0, 0, 5, 0 };
+            newSpell.SetStats("Magic Barrier", defenseStats);
+            deck.Add(newSpell);
+        }
+
+        GameObject.Find("CombatMap").GetComponent<Combat>().ShuffleDeck();
+        GameObject.Find("CombatMap").GetComponent<Combat>().DrawCards(5);
+
+    }
+    public List<Spell> GetSpells()
+    {
+        return deck;
     }
 }

@@ -90,5 +90,8 @@ public class CharacterControl : MonoBehaviour
 
     }
 
+    public void CastSpell ()
+    {
 
+    }
 }

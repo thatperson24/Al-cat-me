@@ -6,19 +6,7 @@ public class Overmap : MonoBehaviour
 {
     public static Overmap Get;
 
-    //one layer/row of the map
-    [System.Serializable]
-    public struct MapLayer
-    {
-        public bool Selectable;
-        public List<Button> LevelScenes;
-    }
-
     public List<OvermapNode> StartingNodes;
-
-    //number of levels to generate
-    public int LayersToGenerate;
-    int currentLevelIndex;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -38,7 +26,6 @@ public class Overmap : MonoBehaviour
         }
         // Must be persistent throughout game
         DontDestroyOnLoad(this);
-        currentLevelIndex = 0;
 
         foreach(var node in StartingNodes)
         {

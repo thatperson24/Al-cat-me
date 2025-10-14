@@ -20,6 +20,11 @@ public class GameController : MonoBehaviour
         
     }
 
+    public int getGold()
+    {
+        return gold;
+    }
+
     public void addGold(int amount)
     {
         gold += amount;

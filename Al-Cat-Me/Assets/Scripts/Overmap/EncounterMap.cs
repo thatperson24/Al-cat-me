@@ -1,13 +1,20 @@
+using System.Linq;
 using UnityEngine;
 
 public class EncounterMap : MonoBehaviour
 {
     [SerializeField] private string mapData;
     [SerializeField] private GameObject MapTilePrefab;
+
+    public MapTile[][] Tiles;
+
+    private const char END_ROW_CHAR = 'X';
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        GenerateMap();
+        this.Tiles = GenerateMap();
+        this.CenterMap();
     }
 
     // Update is called once per frame
@@ -29,51 +36,39 @@ public class EncounterMap : MonoBehaviour
             - W = Wet tile that reduces movement
             - E = Has electricity on it 
     Output:
-        - N/A
+        - 2-D array of tiles
     */
-    private void GenerateMap()
+    private MapTile[][] GenerateMap()
     {
-        int row = 0, col = 0, maxCol = 10;
-        for (int i = 0; i < mapData.Length; i++)
-        {
-            if (mapData[i] != 'X')
-            {
-                GameObject newTile = Instantiate(MapTilePrefab, this.gameObject.transform);
-                newTile.GetComponent<MapTile>().SetInitialState(mapData[i]);
-                newTile.name = "Tile: Col-" + col + " row-" + row;
-                newTile.transform.position = new Vector2(col, row);
-                col++;
-            }
-            else if (mapData[i] == 'X')
-            {
-                row--;
-                if (col > maxCol)
+        return mapData
+            .Split(END_ROW_CHAR)
+            .Select((rowData, rowIndex) =>
+                rowData.ToCharArray().Select((tileCode, colIndex) =>
                 {
-                    maxCol = col;
-                }
-                col = 0;
-            }
-        }
-        float newX;
-        float newY;
+                    GameObject newTile = Instantiate(MapTilePrefab, this.gameObject.transform);
+                    MapTile tile = newTile.GetComponent<MapTile>();
 
-        if (maxCol % 2 == 0)
-        {
-            newX = (float)(-maxCol / 2) + .5f;
-        }
-        else
-        {
-            newX = (float)(-maxCol / 2);
-        }
+                    tile.SetInitialState(tileCode);
+                    newTile.name = "Tile: Col-" + colIndex + " row-" + rowIndex;
+                    newTile.transform.position = new Vector2(colIndex, rowIndex);
 
-        if (row + 1 % 2 == 0)
-        {
-            newY = (float)(-row / 2) + .5f;
-        }
-        else
-        {
-            newY = (float)(-row / 2);
-        }
+                    return tile;
+                }).ToArray()
+            ).ToArray();
+    }
+
+    private void CenterMap()
+    {
+        int maxColumns = this.Tiles.Max(row => row.Length);
+        int numRows = this.Tiles.Length;
+
+        float newX = (maxColumns % 2 == 0)
+            ? (float)(-maxColumns / 2) + .5f
+            : (float)(-maxColumns / 2);
+        float newY = (numRows % 2 == 0)
+            ? (float)(-numRows / 2) + .5f
+            : (float)(-numRows / 2);
+
         this.gameObject.transform.position = new Vector2(newX, newY);
     }
 }

@@ -5,7 +5,7 @@ using System.Collections;
 using UnityEngine.UI;
 using TMPro;
 
-public class Combat : MonoBehaviour, Encounter
+public class Combat : MonoBehaviour
 {
     public GameController gameController;
 

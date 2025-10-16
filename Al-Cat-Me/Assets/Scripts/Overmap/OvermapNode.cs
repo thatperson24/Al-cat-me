@@ -8,6 +8,8 @@ public class OvermapNode : MonoBehaviour
     public bool Selectable;
     public bool Completed;
     public Button NodeButton;
+    public LineRenderer ConnectionVisualTemplate;
+    private List<LineRenderer> lineVisuals = new();
 
     public Scenario LinkedScenario;
     public List<OvermapNode> NextNodes;
@@ -18,6 +20,17 @@ public class OvermapNode : MonoBehaviour
         Completed = false;
 
         NodeButton.onClick.AddListener(() => Overmap.Get.LoadScenario(LinkedScenario));
+        foreach (var node in NextNodes)
+        {
+            var lineObject = Instantiate(ConnectionVisualTemplate.gameObject, transform);
+            var lineMesh = lineObject.GetComponent<LineRenderer>();
+            lineVisuals.Add(lineMesh);
+            var linePoints = new List<Vector3>();
+            linePoints.Add(node.transform.position);
+            linePoints.Add(transform.position);
+            lineMesh.SetPositions(linePoints.ToArray());
+            lineObject.SetActive(true);
+        }
     }
 
     public void CompleteNodeLevel()

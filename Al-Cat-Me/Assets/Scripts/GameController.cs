@@ -64,14 +64,16 @@ public class GameController : MonoBehaviour
         deck = new List<Spell>();
         for (int i = 0; i < 10; i++)
         {
-            Spell newSpell = new Spell();
+            GameObject newSpell = new GameObject();
+            newSpell.AddComponent<Spell>();
             int[] offenseStats = { 3, 3, 0, 0, 0, 0 };
-            newSpell.SetStats("Blast", offenseStats);
-            deck.Add(newSpell);
-            newSpell = new Spell();
+            newSpell.GetComponent<Spell>().SetStats("Blast", offenseStats);
+            deck.Add(newSpell.GetComponent<Spell>());
+            newSpell = new GameObject();
+            newSpell.AddComponent<Spell>();
             int[] defenseStats = { 0, 0, 0, 0, 5, 0 };
-            newSpell.SetStats("Magic Barrier", defenseStats);
-            deck.Add(newSpell);
+            newSpell.GetComponent<Spell>().SetStats("Magic Barrier", defenseStats);
+            deck.Add(newSpell.GetComponent<Spell>());
         }
 
         GameObject.Find("CombatMap").GetComponent<Combat>().ShuffleDeck();

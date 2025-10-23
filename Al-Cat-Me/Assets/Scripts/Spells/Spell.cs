@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Spell : MonoBehaviour
+public class Spell : ScriptableObject
 {
     [SerializeField] private string spellName;
     [SerializeField] private int damage;

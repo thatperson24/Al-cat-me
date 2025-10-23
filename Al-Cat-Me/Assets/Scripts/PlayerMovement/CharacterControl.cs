@@ -15,7 +15,7 @@ public class CharacterControl : MonoBehaviour
     [SerializeField] private float moveDuration = 0.1f;//Time in seconds to move between one grid position to the next
     public bool isMoving = false;   //Helps with checking movement requests
 
-    private EncounterMap encounterMap = new EncounterMap();
+    private EncounterMap encounterMap;
     private int row;
     private int col;
 

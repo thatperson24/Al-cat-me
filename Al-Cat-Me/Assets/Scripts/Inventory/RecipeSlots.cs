@@ -61,12 +61,11 @@ public class RecipeSlots : MonoBehaviour
 
     public void CreateSpell()
     {
-        GameObject newSpell = new GameObject();
-        newSpell.AddComponent<Spell>();
-        newSpell.GetComponent<Spell>().SetStats(spellName.text, stats);
+        Spell newSpell = ScriptableObject.CreateInstance<Spell>();
+        newSpell.SetStats(spellName.text, stats);
         newSpell.name = spellName.text;
 
-        gameController.addSpell(newSpell.GetComponent<Spell>());
+        gameController.addSpell(newSpell);
         ClearRecipe();
     }
 

@@ -60,7 +60,7 @@ public class Combat : MonoBehaviour
     private IEnumerator Move(int cardNum)
     {
         GameObject newCard = Instantiate(cardPrefab, GameObject.Find("Cards").transform);
-        Spell spell = newCard.AddComponent<Spell>();
+        Spell spell = ScriptableObject.CreateInstance<Spell>();
         spell = spellList[cardNum];
         newCard.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = spell.GetSpellName();
         newCard.transform.GetChild(1).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Damage: " + spell.GetDamage() +

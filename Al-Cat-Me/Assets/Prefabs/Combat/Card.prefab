@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 89755897429094313}
   - component: {fileID: 95489765355271172}
   - component: {fileID: 8206515691575993272}
+  - component: {fileID: -1573872248145417062}
   m_Layer: 5
   m_Name: Card
   m_TagString: Untagged
@@ -77,6 +78,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &-1573872248145417062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3854331449498366384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d36ad0df43dc284a8707e6962d1da16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpellCard
 --- !u!1 &4052844466485789702
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,8 +5,11 @@ public class EncounterMap : MonoBehaviour
 {
     [SerializeField] private string mapData;
     [SerializeField] private GameObject MapTilePrefab;
+    [SerializeField] private GameObject CharacterPrefab;
 
     public MapTile[][] Tiles;
+    private GameObject character;
+
 
     private const char END_ROW_CHAR = 'X';
 
@@ -15,6 +18,11 @@ public class EncounterMap : MonoBehaviour
     {
         this.Tiles = GenerateMap();
         this.CenterMap();
+
+        MapTile newTile = Tiles[0][0];
+
+        Debug.Log(newTile.gameObject.name);
+        character = SpawnCharacter();
     }
 
     // Update is called once per frame
@@ -55,6 +63,22 @@ public class EncounterMap : MonoBehaviour
                     return tile;
                 }).ToArray()
             ).ToArray();
+
+    }
+
+    private GameObject SpawnCharacter()
+    {
+        int maxColumns = this.Tiles.Max(row => row.Length);
+        int newX = (maxColumns % 2 == 0)
+            ? (maxColumns / 2) + 1
+            : (maxColumns / 2);
+        
+        GameObject newCharacter = Instantiate(CharacterPrefab, Tiles[0][newX].gameObject.transform);
+        newCharacter.GetComponent<CharacterControl>().SetEncounterMap(this);
+        newCharacter.GetComponent<CharacterControl>().SetRow(0);
+        newCharacter.GetComponent<CharacterControl>().SetCol(newX);
+
+        return newCharacter;
     }
 
     private void CenterMap()
@@ -70,5 +94,10 @@ public class EncounterMap : MonoBehaviour
             : (float)(-numRows / 2);
 
         this.gameObject.transform.position = new Vector2(newX, newY);
+    }
+
+    public MapTile[][] GetMapTiles()
+    {
+        return this.Tiles; 
     }
 }

@@ -118,4 +118,6 @@ public class CharacterControl : MonoBehaviour
     {
         isLocked = val;
     }
+
+    public bool GetIsLocked() { return isLocked; }
 }

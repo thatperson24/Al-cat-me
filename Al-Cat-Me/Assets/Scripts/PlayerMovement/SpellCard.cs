@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class SpellCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -30,6 +31,7 @@ public class SpellCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public void ClickSpell()
     {
         CharacterControl characterControl = GameObject.Find("Character").GetComponent<CharacterControl>();
+        if (characterControl.GetIsLocked() && !selected) { return; }
         if (!selected) {
             characterControl.SetIsLocked(true);
             int height = characterControl.GetRow();

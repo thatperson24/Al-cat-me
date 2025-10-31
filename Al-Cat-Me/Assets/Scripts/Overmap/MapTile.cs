@@ -13,7 +13,21 @@ public class MapTile : MonoBehaviour
         public const char MUDDY = 'M';
         public const char WET = 'W';
         public const char ELECTRIFIED = 'E';
+
+        public static readonly char[] Entries = { UNOCCUPIED, OCCUPIED, BURNING, TERRAIN, MUDDY, WET, ELECTRIFIED };
+
+        public static bool CanBeOccupied(char tileState)
+        {
+            return tileState switch
+            {
+                // TODO: Can a MUDDY tile be occupied?
+                TERRAIN or MUDDY => false,
+                _ => true,
+            };
+        }
     }
+
+    private OccupyingEntity Entity = null;
     private readonly ElementalStateMachine Esm = new();
 
     [SerializeField] private char state;
@@ -40,7 +54,12 @@ public class MapTile : MonoBehaviour
     public void SetState(char newState)
     {
         this.state = newState;
-        this.spriteRenderer.color = newState switch
+        ReRender();
+    }
+
+    private void ReRender()
+    {
+        Color newColor = state switch
         {
             TileState.UNOCCUPIED => Color.green,
             TileState.OCCUPIED => Color.yellow,
@@ -49,8 +68,17 @@ public class MapTile : MonoBehaviour
             TileState.MUDDY => Color.black,
             TileState.WET => Color.blue,
             TileState.ELECTRIFIED => Color.purple,
-            _ => throw new NotImplementedException($"Unrecognized tile state: ${newState}"),
+            _ => throw new NotImplementedException($"Unrecognized tile state: {state}"),
         };
+        if (this.IsOccupied)
+        {
+            // TODO: render enemy on the square
+            this.spriteRenderer.color = Color.hotPink;
+        }
+        else
+        {
+            this.spriteRenderer.color = newColor;
+        }
     }
 
     public void ApplyElementalAction(ElementalState action)
@@ -69,7 +97,7 @@ public class MapTile : MonoBehaviour
             TileState.MUDDY => ElementalState.Earth, // TODO: add Muddy element state
             TileState.WET => ElementalState.Water,
             TileState.ELECTRIFIED => ElementalState.Lightning,
-            _ => throw new NotImplementedException($"Unrecognized tile state: ${aState}"),
+            _ => throw new NotImplementedException($"Unrecognized tile state: {aState}"),
         };
     }
 
@@ -83,7 +111,40 @@ public class MapTile : MonoBehaviour
             ElementalState.Air => TileState.UNOCCUPIED, // TODO: actually return GUSTY or something
             ElementalState.Earth => TileState.TERRAIN,
             ElementalState.X => TileState.UNOCCUPIED,
-            _ => throw new NotImplementedException($"Unrecognized elemental action: ${action}"),
+            _ => throw new NotImplementedException($"Unrecognized elemental action: {action}"),
         };
+    }
+
+    public void SetEntity(OccupyingEntity entity)
+    {
+        this.Entity = entity;
+        ReRender();
+    }
+
+    public bool CanBeOccupied
+    {
+        get => TileState.CanBeOccupied(this.state);
+    }
+
+    public bool IsOccupied
+    {
+        // TODO: Remove OCCUPIED state if we don't really need it
+        get => this.Entity != null || this.state == TileState.OCCUPIED;
+    }
+
+    public void MoveEntityToOtherMapTile(MapTile other)
+    {
+        if (this.Entity == null)
+        {
+            throw new Exception("Attempted to move null entity to other tile");
+        }
+        else if (other.Entity != null)
+        {
+            throw new Exception("Attempted to move entity to occupied tile");
+        }
+
+        // Perform the swaperoo
+        other.Entity = this.Entity;
+        this.Entity = null;
     }
 }

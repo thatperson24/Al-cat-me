@@ -109,8 +109,7 @@ public class CharacterControl : MonoBehaviour
     {
         col = newCol;
     }
-    public void CastSpell ()
-    {
-
-    }
+    
+    public int GetRow() { return row; }
+    public int GetCol() { return col; }
 }

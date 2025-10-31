@@ -21,7 +21,6 @@ public class EncounterMap : MonoBehaviour
 
         MapTile newTile = Tiles[0][0];
 
-        Debug.Log(newTile.gameObject.name);
         character = SpawnCharacter();
     }
 
@@ -74,6 +73,7 @@ public class EncounterMap : MonoBehaviour
             : (maxColumns / 2);
         
         GameObject newCharacter = Instantiate(CharacterPrefab, Tiles[0][newX].gameObject.transform);
+        newCharacter.name = "Character";
         newCharacter.GetComponent<CharacterControl>().SetEncounterMap(this);
         newCharacter.GetComponent<CharacterControl>().SetRow(0);
         newCharacter.GetComponent<CharacterControl>().SetCol(newX);

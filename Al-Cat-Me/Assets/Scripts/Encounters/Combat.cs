@@ -62,6 +62,7 @@ public class Combat : MonoBehaviour
         GameObject newCard = Instantiate(cardPrefab, GameObject.Find("Cards").transform);
         Spell spell = ScriptableObject.CreateInstance<Spell>();
         spell = spellList[cardNum];
+        newCard.GetComponent<SpellCard>().SetSpell(spell);
         newCard.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = spell.GetSpellName();
         newCard.transform.GetChild(1).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Damage: " + spell.GetDamage() +
                                                                                                     "\nRange: " + spell.GetRange() +

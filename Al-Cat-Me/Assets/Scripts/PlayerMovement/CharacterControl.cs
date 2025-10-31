@@ -14,6 +14,7 @@ public class CharacterControl : MonoBehaviour
 
     [SerializeField] private float moveDuration = 0.1f;//Time in seconds to move between one grid position to the next
     public bool isMoving = false;   //Helps with checking movement requests
+    private bool isLocked = false;
 
     private EncounterMap encounterMap;
     private int row;
@@ -29,7 +30,7 @@ public class CharacterControl : MonoBehaviour
     void Update()
     {
         //This will only process one move at a time
-        if (!isMoving)
+        if (!isMoving && !isLocked)
         {
             //Accomodate two different types of moving
             System.Func<KeyCode, bool> inputFunction;
@@ -112,4 +113,9 @@ public class CharacterControl : MonoBehaviour
     
     public int GetRow() { return row; }
     public int GetCol() { return col; }
+
+    public void SetIsLocked(bool val)
+    {
+        isLocked = val;
+    }
 }

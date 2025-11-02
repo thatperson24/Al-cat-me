@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -9,7 +10,8 @@ public class EncounterMap : MonoBehaviour
 
     public MapTile[][] Tiles;
     private GameObject character;
-
+    private List<MapTile> indicated;
+    private SpellCard card;
 
     private const char END_ROW_CHAR = 'X';
 
@@ -20,7 +22,7 @@ public class EncounterMap : MonoBehaviour
         this.CenterMap();
 
         MapTile newTile = Tiles[0][0];
-
+        indicated = new List<MapTile>();
         character = SpawnCharacter();
     }
 
@@ -100,4 +102,20 @@ public class EncounterMap : MonoBehaviour
     {
         return this.Tiles; 
     }
+
+    public void AddIndicated(MapTile tile)
+    {
+        indicated.Add(tile);
+    }
+
+    public void ClearIndicated()
+    {
+        foreach (MapTile tile in indicated)
+        {
+            tile.RemoveAttack();
+        }
+        indicated.Clear();
+    }
+
+    
 }

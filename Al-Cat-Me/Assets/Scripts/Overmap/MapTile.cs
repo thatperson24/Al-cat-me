@@ -1,8 +1,10 @@
 using Assets.Scripts.StateEffects;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class MapTile : MonoBehaviour
+public class MapTile : MonoBehaviour, IPointerClickHandler
 {
     public static class TileState
     {
@@ -18,7 +20,12 @@ public class MapTile : MonoBehaviour
 
     [SerializeField] private char state;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    private bool isIndicated;
 
+    private void Awake()
+    {
+        isIndicated = false;
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -29,6 +36,11 @@ public class MapTile : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log(gameObject.name);
     }
 
     public void SetInitialState(char newState)
@@ -85,5 +97,29 @@ public class MapTile : MonoBehaviour
             ElementalState.X => TileState.UNOCCUPIED,
             _ => throw new NotImplementedException($"Unrecognized elemental action: ${action}"),
         };
+    }
+
+    public void IndicateAttack()
+    {
+        transform.Find("AttackIndicator").GetComponent<SpriteRenderer>().enabled = true;
+        isIndicated = true;
+
+    }
+
+    public void RemoveAttack()
+    {
+        transform.Find("AttackIndicator").GetComponent<SpriteRenderer>().enabled = false;
+        isIndicated = false;
+    }
+
+    public void Attack()
+    {
+        if (isIndicated)
+        {
+            GameObject.Find("CombatMap").GetComponent<EncounterMap>().ClearIndicated();
+            GameObject.Find("CombatMap").GetComponent<Combat>().DestroySpellCard();
+            GameObject.Find("Character").GetComponent<CharacterControl>().SetIsLocked(false);
+            Debug.Log($"${gameObject.name} is attacked");
+        }
     }
 }

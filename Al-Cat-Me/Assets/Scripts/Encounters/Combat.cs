@@ -15,6 +15,7 @@ public class Combat : MonoBehaviour
     [SerializeField] private Transform CardSpawn;
     [SerializeField] private List<Transform> cardSlots;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private SpellCard currentSpell;
     void Start()
     {
 
@@ -90,5 +91,15 @@ public class Combat : MonoBehaviour
         {
             StartCoroutine(Move(++cardNum));
         }
+    }
+
+    public void SetSpellCard(SpellCard newCard)
+    {
+        currentSpell = newCard;
+    }
+
+    public void DestroySpellCard()
+    {
+        Destroy(currentSpell.gameObject);
     }
 }

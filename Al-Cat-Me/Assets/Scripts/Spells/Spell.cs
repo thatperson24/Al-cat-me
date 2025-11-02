@@ -22,11 +22,19 @@ public class Spell : ScriptableObject
         delay = stats[5];
     }
 
-    public string GetSpellName()
-    {
-        return spellName;
-    }
 
+    public void CopySpell(Spell spell)
+    {
+        spellName = spell.GetSpellName();
+        damage = spell.GetDamage();
+        range = spell.GetRange();
+        aoe = spell.GetAoe();
+        castType = spell.GetCastType();
+        blocking = spell.GetBlocking();
+        delay = spell.GetDelay();
+
+    }
+    public string GetSpellName() { return spellName;}
     public int GetDamage() { return damage; }
     public int GetRange() { return range; }
     public int GetAoe() { return aoe; }

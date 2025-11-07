@@ -1,3 +1,4 @@
+using System.Drawing;
 using System.Linq;
 using UnityEngine;
 
@@ -50,6 +51,7 @@ public class EncounterMap : MonoBehaviour
                     MapTile tile = newTile.GetComponent<MapTile>();
 
                     tile.SetInitialState(tileCode);
+                    tile.MyPosition = new Point(colIndex, rowIndex);
                     newTile.name = "Tile: Col-" + colIndex + " row-" + rowIndex;
                     newTile.transform.position = new Vector2(colIndex, rowIndex);
 

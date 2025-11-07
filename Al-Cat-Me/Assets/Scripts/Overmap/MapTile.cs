@@ -1,6 +1,9 @@
 using Assets.Scripts.StateEffects;
 using UnityEngine;
 using System;
+using System.Drawing;
+
+using Color = UnityEngine.Color;
 
 public class MapTile : MonoBehaviour
 {
@@ -26,6 +29,10 @@ public class MapTile : MonoBehaviour
         }
     }
 
+    /**
+     * pls don't modify me outside of initial creation --> :( <--
+     */
+    public Point MyPosition;
     private OccupyingEntity Entity = null;
     private readonly ElementalStateMachine Esm = new();
 
@@ -118,6 +125,7 @@ public class MapTile : MonoBehaviour
 
     public void SetEntity(OccupyingEntity entity)
     {
+        entity.CurrentTile = this;
         this.Entity = entity;
         ReRender();
     }
@@ -145,7 +153,7 @@ public class MapTile : MonoBehaviour
         }
 
         // Perform the swaperoo
-        other.Entity = this.Entity;
+        other.SetEntity(this.Entity);
         this.Entity = null;
     }
 }

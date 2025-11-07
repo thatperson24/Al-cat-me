@@ -24,10 +24,10 @@ namespace PathFinder
 
     /// <example>
     /// 
-    /// const solver = new PathFinder();
+    /// PathSolver solver = new PathSolver();
     /// solver.Graph(map, source, destination, threshold, openList, closedList);
     /// Point position = solver.solution.Value.position;
-    /// Cost cost = bitmapSolver.solution.Value.cost;
+    /// Cost cost = solver.solution.Value.cost;
     /// do {
     ///     position = solver.ToPosition(cost.parentIndex);
     ///     cost = closedList[position];
@@ -37,7 +37,7 @@ namespace PathFinder
     /// // Do attacks
     /// 
     /// </example>
-    public class PathFinder : AStar<Point, Cost>
+    public class PathSolver : AStar<Point, Cost>
     {
         // TODO: delete this since we only allow orthogonal movements
         // private const int baseOrthogonalCost = 5;
@@ -62,7 +62,7 @@ namespace PathFinder
             MapTile[][] gameMap,
             Point source,
             Point destination,
-            int proximityThreshold,
+            double proximityThreshold,
             PriorityQueue<Node> openList,
             Dictionary<Point, Cost> closedList
         )

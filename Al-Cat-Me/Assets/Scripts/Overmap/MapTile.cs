@@ -57,6 +57,8 @@ public class MapTile : MonoBehaviour
         ReRender();
     }
 
+    public char GetState() => this.state;
+
     private void ReRender()
     {
         Color newColor = state switch

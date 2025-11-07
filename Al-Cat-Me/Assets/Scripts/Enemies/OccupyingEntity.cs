@@ -13,7 +13,7 @@ public class OccupyingEntity
     /// <summary>
     /// Calculates relatively optimal path to get within range of attacking the player
     /// </summary>
-    private void CalculatePathToPlayer(MapTile[][] map, Point destination)
+    public void CalculatePathToPlayer(MapTile[][] map, Point destination)
     {
         PriorityQueue<AStar<Point, Cost>.Node> openList = new PriorityQueue<AStar<Point, Cost>.Node>();
         Dictionary<Point, Cost> closedList = new Dictionary<Point, Cost>();
@@ -27,15 +27,20 @@ public class OccupyingEntity
             openList,
             closedList
         );
+        // TODO: should actually check that `solver.solution.HasValue` before assuming we found a path
         Point position = solver.solution.Value.position;
-        Debug.Log($"Initial position: {position}");
+        List<Point> debugPath = new();
+        debugPath.Add(position);
+
         Cost cost = solver.solution.Value.cost;
         do
         {
             position = solver.ToPosition(cost.parentIndex);
-            Debug.Log($"Next position: {position}");
+            debugPath.Add(position);
             cost = closedList[position];
             // TODO: Move the entity to the position
         } while (cost.parentIndex >= 0);
+
+        Debug.Log($"Found path: {string.Join(" -> ", debugPath)}");
     }
 }

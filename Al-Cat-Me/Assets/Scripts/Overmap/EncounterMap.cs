@@ -82,6 +82,7 @@ public class EncounterMap : MonoBehaviour
     {
         // TODO: Create dynamic logic and orientations for where to place enemies / enemy type
         int numRows = this.Tiles.Length;
+        int numCols = this.Tiles[0].Length;
         while (numEnemies > 0)
         {
             int targetRow = Random.Range(0, numRows);
@@ -92,7 +93,15 @@ public class EncounterMap : MonoBehaviour
             {
                 // TODO: do something useful with enemies
                 Debug.Log($"Placing enemy at ({targetRow}, {targetCol})");
-                tile.SetEntity(new OccupyingEntity());
+                OccupyingEntity entity = new OccupyingEntity();
+                tile.SetEntity(entity);
+
+                // Calculate path from enemy -> player
+                // TODO: get player location instead of assuming map corner
+                entity.CalculatePathToPlayer(
+                    map: this.Tiles,
+                    destination: new Point(numCols - 1, numRows - 1)
+                );
                 numEnemies--;
             }
         }

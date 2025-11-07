@@ -20,8 +20,7 @@ public class MapTile : MonoBehaviour
         {
             return tileState switch
             {
-                // TODO: Can a MUDDY tile be occupied?
-                TERRAIN or MUDDY => false,
+                TERRAIN or OCCUPIED => false,
                 _ => true,
             };
         }

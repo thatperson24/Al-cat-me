@@ -24,6 +24,7 @@ public class EncounterMap : MonoBehaviour
         MapTile newTile = Tiles[0][0];
         indicated = new List<MapTile>();
         character = SpawnCharacter();
+        this.PlaceEnemies(3);
     }
 
     // Update is called once per frame
@@ -118,4 +119,26 @@ public class EncounterMap : MonoBehaviour
     }
 
     
+    /*
+    Place enemies on the map
+    */
+    private void PlaceEnemies(int numEnemies)
+    {
+        // TODO: Create dynamic logic and orientations for where to place enemies / enemy type
+        int numRows = this.Tiles.Length;
+        while (numEnemies > 0)
+        {
+            int targetRow = Random.Range(0, numRows);
+            int targetCol = Random.Range(0, this.Tiles[targetRow].Length);
+
+            MapTile tile = this.Tiles[targetRow][targetCol];
+            if (!tile.IsOccupied && tile.CanBeOccupied)
+            {
+                // TODO: do something useful with enemies
+                Debug.Log($"Placing enemy at ({targetRow}, {targetCol})");
+                tile.SetEntity(new OccupyingEntity());
+                numEnemies--;
+            }
+        }
+    }
 }

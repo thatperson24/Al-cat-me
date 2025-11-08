@@ -212,7 +212,7 @@ namespace Assets.Scripts.StateEffects
                     }
                     break;
                 default:
-                    throw new NotImplementedException($"Unhandled current state: ${CurrentState}");
+                    throw new NotImplementedException($"Unhandled current state: {CurrentState}");
             }
 
             // Return updated state
@@ -239,7 +239,7 @@ namespace Assets.Scripts.StateEffects
 
         private void HandleUnrecognizedAction(ElementalState action)
         {
-            throw new NotImplementedException($"Unhandled state applied to ${CurrentState}: ${action}");
+            throw new NotImplementedException($"Unhandled state applied to {CurrentState}: {action}");
         }
 
         // Ideas for additional behaviors

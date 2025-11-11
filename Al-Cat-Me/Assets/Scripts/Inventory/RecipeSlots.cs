@@ -11,7 +11,7 @@ public class RecipeSlots : MonoBehaviour
     [SerializeField] private TextMeshProUGUI statText;
     [SerializeField] private TextMeshProUGUI spellName;
     [SerializeField] private Button createButton;
-
+    private GameController gameController;
     // private int numSlots;
     private int[] stats = new int[6];
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -19,6 +19,7 @@ public class RecipeSlots : MonoBehaviour
     {
         //    numSlots = transform.childCount;
         createButton.onClick.AddListener(CreateSpell);
+        gameController = transform.Find("GameController").GetComponent<GameController>();
     }
 
     public void UpdateRecipe()
@@ -60,11 +61,11 @@ public class RecipeSlots : MonoBehaviour
 
     public void CreateSpell()
     {
-        GameObject newSpell = new GameObject();
-        newSpell.AddComponent<Spell>();
-        newSpell.GetComponent<Spell>().SetStats(spellName.text, stats);
+        Spell newSpell = ScriptableObject.CreateInstance<Spell>();
+        newSpell.SetStats(spellName.text, stats);
         newSpell.name = spellName.text;
 
+        gameController.addSpell(newSpell);
         ClearRecipe();
     }
 

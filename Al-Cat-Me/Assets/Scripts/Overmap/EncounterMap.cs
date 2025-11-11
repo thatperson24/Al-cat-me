@@ -1,13 +1,20 @@
-using System.Drawing;
+
 using System.Linq;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Drawing;
+
 
 public class EncounterMap : MonoBehaviour
 {
     [SerializeField] private string mapData;
     [SerializeField] private GameObject MapTilePrefab;
+    [SerializeField] private GameObject CharacterPrefab;
 
     public MapTile[][] Tiles;
+    private GameObject character;
+    private List<MapTile> indicated;
+    private SpellCard card;
 
     private const char END_ROW_CHAR = 'X';
 
@@ -16,7 +23,12 @@ public class EncounterMap : MonoBehaviour
     {
         this.Tiles = GenerateMap();
         this.CenterMap();
-        this.PlaceEnemies(3);
+         this.PlaceEnemies(3);
+
+
+        MapTile newTile = Tiles[0][0];
+        indicated = new List<MapTile>();
+        character = SpawnCharacter();
     }
 
     // Update is called once per frame
@@ -58,6 +70,23 @@ public class EncounterMap : MonoBehaviour
                     return tile;
                 }).ToArray()
             ).ToArray();
+
+    }
+
+    private GameObject SpawnCharacter()
+    {
+        int maxColumns = this.Tiles.Max(row => row.Length);
+        int newX = (maxColumns % 2 == 0)
+            ? (maxColumns / 2) + 1
+            : (maxColumns / 2);
+        
+        GameObject newCharacter = Instantiate(CharacterPrefab, Tiles[0][newX].gameObject.transform);
+        newCharacter.name = "Character";
+        newCharacter.GetComponent<CharacterControl>().SetEncounterMap(this);
+        newCharacter.GetComponent<CharacterControl>().SetRow(0);
+        newCharacter.GetComponent<CharacterControl>().SetCol(newX);
+
+        return newCharacter;
     }
 
     private void CenterMap()
@@ -75,7 +104,26 @@ public class EncounterMap : MonoBehaviour
         this.gameObject.transform.position = new Vector2(newX, newY);
     }
 
-    /*
+        public MapTile[][] GetMapTiles()
+    {
+        return this.Tiles; 
+    }
+
+    public void AddIndicated(MapTile tile)
+    {
+        indicated.Add(tile);
+    }
+
+    public void ClearIndicated()
+    {
+        foreach (MapTile tile in indicated)
+        {
+            tile.RemoveAttack();
+        }
+        indicated.Clear();
+    }
+
+ /*
     Place enemies on the map
     */
     private void PlaceEnemies(int numEnemies)
@@ -106,4 +154,5 @@ public class EncounterMap : MonoBehaviour
             }
         }
     }
+
 }

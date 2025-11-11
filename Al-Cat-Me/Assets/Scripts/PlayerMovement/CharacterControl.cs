@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using NUnit.Framework;
 using UnityEngine;
@@ -13,8 +14,11 @@ public class CharacterControl : MonoBehaviour
 
     [SerializeField] private float moveDuration = 0.1f;//Time in seconds to move between one grid position to the next
     public bool isMoving = false;   //Helps with checking movement requests
+    private bool isLocked = false;
 
-
+    private EncounterMap encounterMap;
+    private int row;
+    private int col;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,7 +30,7 @@ public class CharacterControl : MonoBehaviour
     void Update()
     {
         //This will only process one move at a time
-        if (!isMoving)
+        if (!isMoving && !isLocked)
         {
             //Accomodate two different types of moving
             System.Func<KeyCode, bool> inputFunction;
@@ -36,21 +40,25 @@ public class CharacterControl : MonoBehaviour
 
 
             //Checks for which movement the user is inputting
-            if (inputFunction(KeyCode.UpArrow) || inputFunction(KeyCode.W))
+            if ((inputFunction(KeyCode.UpArrow) || inputFunction(KeyCode.W)) && (row + 1 < encounterMap.GetMapTiles().Length))
             {
                 StartCoroutine(Move(Vector2.up));
+                gameObject.transform.SetParent(encounterMap.GetMapTiles()[++row][col].gameObject.transform);
             }
-            else if (inputFunction(KeyCode.DownArrow) || inputFunction(KeyCode.S))
+            else if ((inputFunction(KeyCode.DownArrow) || inputFunction(KeyCode.S)) && (row > 0))
             {
                 StartCoroutine(Move(Vector2.down));
+                gameObject.transform.SetParent(encounterMap.GetMapTiles()[--row][col].gameObject.transform);
             }
-            else if (inputFunction(KeyCode.LeftArrow) || inputFunction(KeyCode.A))
+            else if ((inputFunction(KeyCode.LeftArrow) || inputFunction(KeyCode.A)) && (col > 0))
             {
                 StartCoroutine(Move(Vector2.left));
+                gameObject.transform.SetParent(encounterMap.GetMapTiles()[row][--col].gameObject.transform);
             }
-            else if (inputFunction(KeyCode.RightArrow) || inputFunction(KeyCode.D))
+            else if ((inputFunction(KeyCode.RightArrow) || inputFunction(KeyCode.D)) && (col + 1 < encounterMap.GetMapTiles().Max(tileRow => tileRow.Length)))
             {
                 StartCoroutine(Move(Vector2.right));
+                gameObject.transform.SetParent(encounterMap.GetMapTiles()[row][++col].gameObject.transform);
             }
 
         }
@@ -90,5 +98,26 @@ public class CharacterControl : MonoBehaviour
 
     }
 
+    public void SetEncounterMap(EncounterMap em) 
+    {
+        encounterMap = em; 
+    }
+    public void SetRow(int newRow)
+    {
+        row = newRow;
+    }
+    public void SetCol(int newCol)
+    {
+        col = newCol;
+    }
+    
+    public int GetRow() { return row; }
+    public int GetCol() { return col; }
 
+    public void SetIsLocked(bool val)
+    {
+        isLocked = val;
+    }
+
+    public bool GetIsLocked() { return isLocked; }
 }

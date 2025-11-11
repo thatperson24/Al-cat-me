@@ -90,7 +90,13 @@ public class MapTile : MonoBehaviour, IPointerClickHandler
             TileState.ELECTRIFIED => Color.purple,
             _ => throw new NotImplementedException($"Unrecognized tile state: {state}"),
         };
-        if (this.IsOccupied)
+
+        if (this.IsOccupied && this.state == TileState.TERRAIN)
+        {
+            this.spriteRenderer.color = Color.brown;
+        }
+
+        else if (this.IsOccupied)
         {
             // TODO: render enemy on the square
             this.spriteRenderer.color = Color.hotPink;
@@ -150,7 +156,7 @@ public class MapTile : MonoBehaviour, IPointerClickHandler
     public bool IsOccupied
     {
         // TODO: Remove OCCUPIED state if we don't really need it
-        get => this.Entity != null || this.state == TileState.OCCUPIED;
+        get => this.Entity != null || this.state == TileState.OCCUPIED || this.state == TileState.TERRAIN;
     }
 
     public void MoveEntityToOtherMapTile(MapTile other)

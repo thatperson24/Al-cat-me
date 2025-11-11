@@ -25,6 +25,8 @@ public class CharacterControl : MonoBehaviour
 
     //private TileState tileState;
 
+    private OccupyingEntity occupyingEntity;
+
     private int rowCopy;
     private int colCopy;
 
@@ -188,7 +190,6 @@ public class CharacterControl : MonoBehaviour
 
 
         }
-        //Still need to take into account collsions (Tiles )
         //Might want to consider a confirm button
 
     }
@@ -264,7 +265,6 @@ public class CharacterControl : MonoBehaviour
     }
 
 
-
     private void PlaceCharacter()
     {
         EncounterMap em = encounterMap;
@@ -272,17 +272,45 @@ public class CharacterControl : MonoBehaviour
         // TODO: Create dynamic logic and orientations for where to place character
         int numRows = em.GetMapTiles().Length;
         int numCols = em.GetMapTiles().Max(tileRow => tileRow.Length);
+
+        int targetRow = 3; //Random.Range(0, numRows);
+        int targetCol = 3; //Random.Range(0, em.GetMapTiles().Max(tileRow => tileRow.Length));
+
+        MapTile tile = em.GetMapTiles()[targetRow][targetCol];
+        if (!tile.IsOccupied && tile.CanBeOccupied)
+        {
+            //Places character
+            Debug.Log($"Placing player at ({targetRow}, {targetCol})");
+            occupyingEntity = new OccupyingEntity();
+            tile.SetEntity(occupyingEntity);
+
+        }
+
+
+
+
         
+        
+        /*
+        
+
+        ////////
+        /// 
+        /// 
+        ///
         MapTile tile = em.GetMapTiles()[5][8];
 
         
         OccupyingEntity entity = new OccupyingEntity();
         tile.SetEntity(entity);
         
+        ////
+        /// 
+        /// 
         
-        
-        /*
-        
+
+
+
         //Testing out isOccupied method
 
         int targetRow = Random.Range(0, numRows);
@@ -302,25 +330,5 @@ public class CharacterControl : MonoBehaviour
 
 
 
-/*
-    public bool validSpace()
-    {
 
-        int r = GetRow();
-        int c = GetCol();
-
-        char tileState = tile.State;
-
-        Debug.Log(encounterMap.GetMapTiles()[r][c]);
-        return true;
-    }
-
-    //Realized this may be in Maptile.cs
-    /*
-    void InstantiateCharacterPos(GameObject userCharacter)
-    {
-        Vector3 offset = new Vector3(2, 2, 0);
-        GameObject.Instantiate(userCharacter, transform.position + offset, Quaternion.identity);
-    }
-    */
 }

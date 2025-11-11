@@ -193,37 +193,4 @@ public class MapTile : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void SetEntity(OccupyingEntity entity)
-    {
-        entity.CurrentTile = this;
-        this.Entity = entity;
-        ReRender();
-    }
-
-    public bool CanBeOccupied
-    {
-        get => TileState.CanBeOccupied(this.state);
-    }
-
-    public bool IsOccupied
-    {
-        // TODO: Remove OCCUPIED state if we don't really need it
-        get => this.Entity != null || this.state == TileState.OCCUPIED;
-    }
-
-    public void MoveEntityToOtherMapTile(MapTile other)
-    {
-        if (this.Entity == null)
-        {
-            throw new Exception("Attempted to move null entity to other tile");
-        }
-        else if (other.Entity != null)
-        {
-            throw new Exception("Attempted to move entity to occupied tile");
-        }
-
-        // Perform the swaperoo
-        other.SetEntity(this.Entity);
-        this.Entity = null;
-    }
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Drawing;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 
 public class EncounterMap : MonoBehaviour
@@ -10,6 +11,7 @@ public class EncounterMap : MonoBehaviour
     [SerializeField] private string mapData;
     [SerializeField] private GameObject MapTilePrefab;
     [SerializeField] private GameObject CharacterPrefab;
+    [SerializeField] private List<GameObject> EnemyPrefabs;
 
     public MapTile[][] Tiles;
     private GameObject character;
@@ -141,6 +143,9 @@ public class EncounterMap : MonoBehaviour
             {
                 // TODO: do something useful with enemies
                 Debug.Log($"Placing enemy at ({targetRow}, {targetCol})");
+                GameObject newEnemy = Instantiate(EnemyPrefabs[Random.Range(0,EnemyPrefabs.Count)]);
+                newEnemy.transform.SetParent(Tiles[targetRow][targetCol].gameObject.transform);
+                newEnemy.transform.localPosition = new Vector3(0,0,-1);
                 OccupyingEntity entity = new OccupyingEntity();
                 tile.SetEntity(entity);
 

@@ -15,6 +15,7 @@ public class Combat : MonoBehaviour
     [SerializeField] private Transform CardSpawn;
     [SerializeField] private List<Transform> cardSlots;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     private SpellCard currentSpell;
     void Start()
     {

@@ -38,7 +38,7 @@ public class CharacterControl : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        PlaceCharacter(); //Currently just placing character at (5,8) but console states otherwise
+        //PlaceCharacter(); //Currently just placing character at (5,8) but console states otherwise
     }
 
     // Update is called once per frame
@@ -53,11 +53,7 @@ public class CharacterControl : MonoBehaviour
             //GetKeyDown gets a value per key that the user presses
             inputFunction = Input.GetKeyDown;
 
-            
-
-
-            //Checks for which movement the user is inputting
-            
+            //Checks for which movement the user is inputting            
 
             //Up Movement
             if ((inputFunction(KeyCode.UpArrow) || inputFunction(KeyCode.W)) && ((row + 1 < encounterMap.GetMapTiles().Length)))
@@ -81,10 +77,7 @@ public class CharacterControl : MonoBehaviour
                     gameObject.transform.SetParent(encounterMap.GetMapTiles()[++row][col].gameObject.transform);
                     movementPoints--;
                 }
-            
-            
             }
-
 
             //Down Movement
             else if ((inputFunction(KeyCode.DownArrow) || inputFunction(KeyCode.S)) && (row > 0))
@@ -107,9 +100,6 @@ public class CharacterControl : MonoBehaviour
                 }
             }
 
-
-
-
             //Left Movement
             else if ((inputFunction(KeyCode.LeftArrow) || inputFunction(KeyCode.A)) && (col > 0))
             {
@@ -128,8 +118,7 @@ public class CharacterControl : MonoBehaviour
                     gameObject.transform.SetParent(encounterMap.GetMapTiles()[row][--col].gameObject.transform);
                     movementPoints--;
                 } 
-            }
-            
+            }           
 
             //Right Movement
             else if ((inputFunction(KeyCode.RightArrow) || inputFunction(KeyCode.D)) && (col + 1 < encounterMap.GetMapTiles().Max(tileRow => tileRow.Length)))
@@ -167,7 +156,6 @@ public class CharacterControl : MonoBehaviour
                 movementPoints--;
             }
 
-
             //Key press for melee attack is L (lunge)
             else if (inputFunction(KeyCode.L))
             {
@@ -176,7 +164,6 @@ public class CharacterControl : MonoBehaviour
                 movementPoints--;
             }
 
-
             //Debug.Log("Characters on Tile: " + currentTile.GetComponent<MapTile>());
 
             if (movementPoints == 0)
@@ -184,16 +171,9 @@ public class CharacterControl : MonoBehaviour
                 StartCoroutine(waitForEnemy(2f));
                  
             }
-
-
-
-
-
         }
         //Might want to consider a confirm button
-
     }
-
 
     //Method for creating smooth movements between grid positions
     private IEnumerator Move(Vector2 direction)
@@ -218,18 +198,9 @@ public class CharacterControl : MonoBehaviour
         //Make sure we go where we want
         transform.position = endPos;
 
-
         //We are no longer moving so we can accept another input
         isMoving = false;
-
-
     }
-    
-
-
-
-
-
 
     public void SetEncounterMap(EncounterMap em) 
     {
@@ -254,8 +225,6 @@ public class CharacterControl : MonoBehaviour
 
     public bool GetIsLocked() { return isLocked; }
 
-
-
     private IEnumerator waitForEnemy(float delayForEnemy)
     {
         Debug.Log("Waiting For Opponent to move");
@@ -263,72 +232,5 @@ public class CharacterControl : MonoBehaviour
         movementPoints = 5;
         Debug.Log("Enemies have attacked");
     }
-
-
-    private void PlaceCharacter()
-    {
-        EncounterMap em = encounterMap;
-       
-        // TODO: Create dynamic logic and orientations for where to place character
-        int numRows = em.GetMapTiles().Length;
-        int numCols = em.GetMapTiles().Max(tileRow => tileRow.Length);
-
-        int targetRow = 3; //Random.Range(0, numRows);
-        int targetCol = 3; //Random.Range(0, em.GetMapTiles().Max(tileRow => tileRow.Length));
-
-        MapTile tile = em.GetMapTiles()[targetRow][targetCol];
-        if (!tile.IsOccupied && tile.CanBeOccupied)
-        {
-            //Places character
-            Debug.Log($"Placing player at ({targetRow}, {targetCol})");
-            occupyingEntity = new OccupyingEntity();
-            tile.SetEntity(occupyingEntity);
-
-        }
-
-
-
-
-        
-        
-        /*
-        
-
-        ////////
-        /// 
-        /// 
-        ///
-        MapTile tile = em.GetMapTiles()[5][8];
-
-        
-        OccupyingEntity entity = new OccupyingEntity();
-        tile.SetEntity(entity);
-        
-        ////
-        /// 
-        /// 
-        
-
-
-
-        //Testing out isOccupied method
-
-        int targetRow = Random.Range(0, numRows);
-        int targetCol = Random.Range(0, em.GetMapTiles().Max(tileRow => tileRow.Length));
-
-        MapTile tile = em.GetMapTiles()[targetRow][targetCol];
-        if (!tile.IsOccupied && tile.CanBeOccupied)
-        {
-           //Places character
-            Debug.Log($"Placing player at ({targetRow}, {targetCol})");
-            OccupyingEntity entity = new OccupyingEntity();
-            tile.SetEntity(entity);
-           
-        }
-         */
-    }
-
-
-
 
 }

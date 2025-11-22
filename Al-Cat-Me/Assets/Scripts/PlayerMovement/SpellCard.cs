@@ -89,4 +89,6 @@ public class SpellCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         cardSpell = spell;
     }
+
+    public Spell GetSpell() { return cardSpell; }
 }

@@ -12,6 +12,11 @@ public class GameController : MonoBehaviour
     private int gold;
     private IReadOnlyDictionary<string, Ingredient> ingredientCodex = new Dictionary<string, Ingredient>
     {
+        // Name, Stats
+        // <Color> <adjective> <Fruit/object>
+        // Red Stinky Socks
+        // Random stats
+
         { "Arrow Shaft", new Ingredient("Arrow Shaft", 0, 2, 0, 0, 0, 0) },
         { "Arrow Head", new Ingredient("Arrow Head", 1, 0, 0, 0, 0, 0) },
         { "Arrow Tail", new Ingredient("Arrow Tail", 0, 0, 0, 0, -1, 0) },

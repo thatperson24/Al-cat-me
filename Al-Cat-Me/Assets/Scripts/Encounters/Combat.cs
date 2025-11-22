@@ -103,4 +103,9 @@ public class Combat : MonoBehaviour
     {
         Destroy(currentSpell.gameObject);
     }
+    
+    public Spell GetCurrentSpell()
+    {
+        return currentSpell.GetSpell();
+    }
 }

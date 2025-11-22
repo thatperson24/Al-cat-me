@@ -11,7 +11,7 @@ using Unity.VisualScripting;
 public class CharacterControl : MonoBehaviour
 {
 
-    public float movementSpeed= 5f;
+    public float movementSpeed = 5f;
     public Transform moveLocation;
 
     [SerializeField] private float moveDuration = 0.1f;//Time in seconds to move between one grid position to the next
@@ -30,8 +30,8 @@ public class CharacterControl : MonoBehaviour
     private int rowCopy;
     private int colCopy;
 
-    private string stateOfTile = " "; 
-    private MapTile tile;  
+    private string stateOfTile = " ";
+    private MapTile tile;
 
     public int movementPoints = 5;  //amount of actions the user can take
 
@@ -45,7 +45,7 @@ public class CharacterControl : MonoBehaviour
     void Update()
     {
         //This will only process one move at a time
-        if (!isMoving && !isLocked && movementPoints!=0)
+        if (!isMoving && !isLocked && movementPoints != 0)
         {
             //Accomodate two different types of moving
             System.Func<KeyCode, bool> inputFunction;
@@ -53,91 +53,30 @@ public class CharacterControl : MonoBehaviour
             //GetKeyDown gets a value per key that the user presses
             inputFunction = Input.GetKeyDown;
 
-            //Checks for which movement the user is inputting            
+            //Checks for which movement the user is inputting        
 
             //Up Movement
-            if ((inputFunction(KeyCode.UpArrow) || inputFunction(KeyCode.W)) && ((row + 1 < encounterMap.GetMapTiles().Length)))
+            if ((inputFunction(KeyCode.UpArrow) || inputFunction(KeyCode.W)) && (row + 1 < encounterMap.GetMapTiles().Length))
             {
-
-                rowCopy = row + 1;
-
-                if((encounterMap.GetMapTiles()[rowCopy][col].IsOccupied == true))
-                {
-                    Debug.Log("There is a occupied block above");
-                }
-
-                else
-                {
-                    //validSpace();
-                    StartCoroutine(Move(Vector2.up));
-
-                    // Debug.Log("Current State is: " + encounterMap.GetMapTiles()[row][col].IsOccupied);
-                    // Debug.Log("Row: " + row);
-                    
-                    gameObject.transform.SetParent(encounterMap.GetMapTiles()[++row][col].gameObject.transform);
-                    movementPoints--;
-                }
+                AttemptMovement(row + 1, col, Vector2.up);
             }
 
             //Down Movement
             else if ((inputFunction(KeyCode.DownArrow) || inputFunction(KeyCode.S)) && (row > 0))
             {
-
-                rowCopy = row - 1;
-
-                if((encounterMap.GetMapTiles()[rowCopy][col].IsOccupied == true))
-                {
-                    Debug.Log("There is a occupied block below");
-                }
-
-                else
-                {
-
-                    StartCoroutine(Move(Vector2.down));
-                //Debug.Log("Going Down");
-                    gameObject.transform.SetParent(encounterMap.GetMapTiles()[--row][col].gameObject.transform);
-                    movementPoints--;
-                }
+                AttemptMovement(row - 1, col, Vector2.down);
             }
 
             //Left Movement
             else if ((inputFunction(KeyCode.LeftArrow) || inputFunction(KeyCode.A)) && (col > 0))
             {
-
-                colCopy = col - 1;
-                
-                if((encounterMap.GetMapTiles()[row][colCopy].IsOccupied == true))
-                {
-                    Debug.Log("There is a occupied block to the left");
-                }
-
-
-                else
-                {
-                    StartCoroutine(Move(Vector2.left));
-                    gameObject.transform.SetParent(encounterMap.GetMapTiles()[row][--col].gameObject.transform);
-                    movementPoints--;
-                } 
-            }           
+                AttemptMovement(row, col - 1, Vector2.left);
+            }
 
             //Right Movement
             else if ((inputFunction(KeyCode.RightArrow) || inputFunction(KeyCode.D)) && (col + 1 < encounterMap.GetMapTiles().Max(tileRow => tileRow.Length)))
             {
-
-                colCopy = col + 1;
-
-                if((encounterMap.GetMapTiles()[row][colCopy].IsOccupied == true))
-                {
-                    Debug.Log("There is a occupied block to the right");
-                }
-
-                else
-                {
-                    
-                    StartCoroutine(Move(Vector2.right));
-                    gameObject.transform.SetParent(encounterMap.GetMapTiles()[row][++col].gameObject.transform);
-                    movementPoints--;
-                }
+                AttemptMovement(row, col + 1, Vector2.right);
             }
 
             //Key press for abilities is M
@@ -169,10 +108,27 @@ public class CharacterControl : MonoBehaviour
             if (movementPoints == 0)
             {
                 StartCoroutine(waitForEnemy(2f));
-                 
+
             }
         }
         //Might want to consider a confirm button
+    }
+
+    private void AttemptMovement(int nextRow, int nextCol, Vector2 dir)
+    {
+        if (encounterMap.GetMapTiles()[nextRow][nextCol].IsOccupied == true)
+        {
+            Debug.Log("There is a occupied block above");
+        }
+        else
+        {
+            StartCoroutine(Move(dir));
+
+            row = nextRow;
+            col = nextCol;
+            gameObject.transform.SetParent(encounterMap.GetMapTiles()[nextRow][nextCol].gameObject.transform);
+            movementPoints--;
+        }
     }
 
     //Method for creating smooth movements between grid positions
@@ -202,9 +158,9 @@ public class CharacterControl : MonoBehaviour
         isMoving = false;
     }
 
-    public void SetEncounterMap(EncounterMap em) 
+    public void SetEncounterMap(EncounterMap em)
     {
-        encounterMap = em; 
+        encounterMap = em;
     }
     public void SetRow(int newRow)
     {
@@ -214,7 +170,7 @@ public class CharacterControl : MonoBehaviour
     {
         col = newCol;
     }
-    
+
     public int GetRow() { return row; }
     public int GetCol() { return col; }
 

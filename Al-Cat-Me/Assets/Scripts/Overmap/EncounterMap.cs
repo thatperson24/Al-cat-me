@@ -1,6 +1,9 @@
-using System.Collections.Generic;
+
 using System.Linq;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Drawing;
+
 
 public class EncounterMap : MonoBehaviour
 {
@@ -20,11 +23,11 @@ public class EncounterMap : MonoBehaviour
     {
         this.Tiles = GenerateMap();
         this.CenterMap();
+        this.PlaceEnemies(3);
 
         MapTile newTile = Tiles[0][0];
         indicated = new List<MapTile>();
         character = SpawnCharacter();
-        this.PlaceEnemies(3);
     }
 
     // Update is called once per frame
@@ -59,6 +62,7 @@ public class EncounterMap : MonoBehaviour
                     MapTile tile = newTile.GetComponent<MapTile>();
 
                     tile.SetInitialState(tileCode);
+                    tile.MyPosition = new Point(colIndex, rowIndex);
                     newTile.name = "Tile: Col-" + colIndex + " row-" + rowIndex;
                     newTile.transform.position = new Vector2(colIndex, rowIndex);
 
@@ -126,6 +130,7 @@ public class EncounterMap : MonoBehaviour
     {
         // TODO: Create dynamic logic and orientations for where to place enemies / enemy type
         int numRows = this.Tiles.Length;
+        int numCols = this.Tiles[0].Length;
         while (numEnemies > 0)
         {
             int targetRow = Random.Range(0, numRows);
@@ -136,7 +141,15 @@ public class EncounterMap : MonoBehaviour
             {
                 // TODO: do something useful with enemies
                 Debug.Log($"Placing enemy at ({targetRow}, {targetCol})");
-                tile.SetEntity(new OccupyingEntity());
+                OccupyingEntity entity = new OccupyingEntity();
+                tile.SetEntity(entity);
+
+                // Calculate path from enemy -> player
+                // TODO: get player location instead of assuming map corner
+                entity.CalculatePathToPlayer(
+                    map: this.Tiles,
+                    destination: new Point(numCols - 1, numRows - 1)
+                );
                 numEnemies--;
             }
         }

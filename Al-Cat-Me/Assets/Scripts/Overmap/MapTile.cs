@@ -1,8 +1,11 @@
 using Assets.Scripts.StateEffects;
 using UnityEngine;
 using System;
+
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Drawing;
+using Color = UnityEngine.Color;
 
 public class MapTile : MonoBehaviour, IPointerClickHandler
 {
@@ -22,13 +25,16 @@ public class MapTile : MonoBehaviour, IPointerClickHandler
         {
             return tileState switch
             {
-                // TODO: Can a MUDDY tile be occupied?
-                TERRAIN or MUDDY => false,
+                TERRAIN or OCCUPIED => false,
                 _ => true,
             };
         }
     }
 
+    /**
+     * pls don't modify me outside of initial creation --> :( <--
+     */
+    public Point MyPosition;
     private OccupyingEntity Entity = null;
     private readonly ElementalStateMachine Esm = new();
 
@@ -69,6 +75,8 @@ public class MapTile : MonoBehaviour, IPointerClickHandler
         ReRender();
     }
 
+    public char GetState() => this.state;
+
     private void ReRender()
     {
         Color newColor = state switch
@@ -82,7 +90,13 @@ public class MapTile : MonoBehaviour, IPointerClickHandler
             TileState.ELECTRIFIED => Color.purple,
             _ => throw new NotImplementedException($"Unrecognized tile state: {state}"),
         };
-        if (this.IsOccupied)
+
+        if (this.IsOccupied && this.state == TileState.TERRAIN)
+        {
+            this.spriteRenderer.color = Color.brown;
+        }
+
+        else if (this.IsOccupied)
         {
             // TODO: render enemy on the square
             this.spriteRenderer.color = Color.hotPink;
@@ -153,6 +167,7 @@ public class MapTile : MonoBehaviour, IPointerClickHandler
     
     public void SetEntity(OccupyingEntity entity)
     {
+        entity.CurrentTile = this;
         this.Entity = entity;
         ReRender();
     }
@@ -165,7 +180,7 @@ public class MapTile : MonoBehaviour, IPointerClickHandler
     public bool IsOccupied
     {
         // TODO: Remove OCCUPIED state if we don't really need it
-        get => this.Entity != null || this.state == TileState.OCCUPIED;
+        get => this.Entity != null || this.state == TileState.OCCUPIED || this.state == TileState.TERRAIN;
     }
 
     public void MoveEntityToOtherMapTile(MapTile other)
@@ -180,7 +195,7 @@ public class MapTile : MonoBehaviour, IPointerClickHandler
         }
 
         // Perform the swaperoo
-        other.Entity = this.Entity;
+        other.SetEntity(this.Entity);
         this.Entity = null;
     }
 }

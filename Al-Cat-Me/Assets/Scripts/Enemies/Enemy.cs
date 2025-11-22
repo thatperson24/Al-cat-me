@@ -31,4 +31,9 @@ public class Enemy : MonoBehaviour
     {
         health += heal;
     }
+
+    public void Die()
+    {
+
+    }
 }

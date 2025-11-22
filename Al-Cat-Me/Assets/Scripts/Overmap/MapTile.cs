@@ -40,11 +40,14 @@ public class MapTile : MonoBehaviour, IPointerClickHandler
 
     [SerializeField] private char state;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    
     private bool isIndicated;
+    private Combat combat;
 
     private void Awake()
     {
         isIndicated = false;
+        combat = GameObject.Find("CombatMap").GetComponent<Combat>();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -161,7 +164,9 @@ public class MapTile : MonoBehaviour, IPointerClickHandler
             GameObject.Find("CombatMap").GetComponent<EncounterMap>().ClearIndicated();
             GameObject.Find("CombatMap").GetComponent<Combat>().DestroySpellCard();
             GameObject.Find("Character").GetComponent<CharacterControl>().SetIsLocked(false);
-            Debug.Log($"${gameObject.name} is attacked");
+            Debug.Log($"{gameObject.name} is attacked");
+            Debug.Log($"{combat.GetCurrentSpell().GetSpellName()}");
+            transform.GetChild(1).GetComponent<Enemy>().TakeDamage(combat.GetCurrentSpell().GetDamage());
         }
     }
     

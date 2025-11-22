@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Ingredient : MonoBehaviour
 {
-    [SerializeField] private string name;
+    [SerializeField] private string ingredientName;
     [SerializeField] private int damage;
     [SerializeField] private int range;
     [SerializeField] private int aoe;
@@ -12,7 +12,7 @@ public class Ingredient : MonoBehaviour
 
     public Ingredient(string name, int damage, int range, int aoe, int castType, int blocking, int delay)
     {
-        this.name = name;
+        this.ingredientName = name;
         this.damage = damage;
         this.range = range;
         this.aoe = aoe;
@@ -29,6 +29,6 @@ public class Ingredient : MonoBehaviour
 
     public string GetName()
     {
-        return name;
+        return ingredientName;
     }
 }

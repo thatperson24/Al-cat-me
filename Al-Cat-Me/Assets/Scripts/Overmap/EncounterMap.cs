@@ -1,10 +1,8 @@
-
 using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Drawing;
 using static UnityEngine.Rendering.DebugUI.Table;
-
 
 public class EncounterMap : MonoBehaviour
 {
@@ -12,6 +10,7 @@ public class EncounterMap : MonoBehaviour
     [SerializeField] private GameObject MapTilePrefab;
     [SerializeField] private GameObject CharacterPrefab;
     [SerializeField] private List<GameObject> EnemyPrefabs;
+    private int numEnemies;
 
     public MapTile[][] Tiles;
     private GameObject character;
@@ -20,12 +19,14 @@ public class EncounterMap : MonoBehaviour
 
     private const char END_ROW_CHAR = 'X';
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        numEnemies = 3;
         this.Tiles = GenerateMap();
         this.CenterMap();
-        this.PlaceEnemies(3);
+        this.PlaceEnemies(numEnemies);
 
         MapTile newTile = Tiles[0][0];
         indicated = new List<MapTile>();
@@ -124,7 +125,6 @@ public class EncounterMap : MonoBehaviour
         indicated.Clear();
     }
 
-    
     /*
     Place enemies on the map
     */
@@ -144,8 +144,10 @@ public class EncounterMap : MonoBehaviour
                 // TODO: do something useful with enemies
                 Debug.Log($"Placing enemy at ({targetRow}, {targetCol})");
                 GameObject newEnemy = Instantiate(EnemyPrefabs[Random.Range(0,EnemyPrefabs.Count)]);
-                newEnemy.transform.SetParent(Tiles[targetRow][targetCol].gameObject.transform);
+                newEnemy.transform.SetParent(tile.gameObject.transform);
                 newEnemy.transform.localPosition = new Vector3(0,0,-1);
+                newEnemy.GetComponent<Enemy>().SetEncounterMap(this);
+                newEnemy.GetComponent<Enemy>().SetMapTile(tile);
                 OccupyingEntity entity = new OccupyingEntity();
                 tile.SetEntity(entity);
 
@@ -158,5 +160,10 @@ public class EncounterMap : MonoBehaviour
                 numEnemies--;
             }
         }
+    }
+
+    public void ReduceEnemies()
+    {
+        numEnemies--;
     }
 }

@@ -23,9 +23,7 @@ public class CharacterControl : MonoBehaviour
     private int col;
     private ElementalStateMachine elementalStateMachine;
 
-    //private TileState tileState;
-
-    private OccupyingEntity occupyingEntity;
+    // private TileState tileState;
 
     private int rowCopy;
     private int colCopy;

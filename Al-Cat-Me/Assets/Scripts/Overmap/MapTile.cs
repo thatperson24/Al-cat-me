@@ -35,7 +35,7 @@ public class MapTile : MonoBehaviour, IPointerClickHandler
      * pls don't modify me outside of initial creation --> :( <--
      */
     public Point MyPosition;
-    private OccupyingEntity Entity = null;
+    private GameObject EnemyEntity = null;
     private readonly ElementalStateMachine Esm = new();
 
     [SerializeField] private char state;
@@ -164,11 +164,11 @@ public class MapTile : MonoBehaviour, IPointerClickHandler
             Debug.Log($"${gameObject.name} is attacked");
         }
     }
-    
-    public void SetEntity(OccupyingEntity entity)
+
+    public void SetEntity(GameObject entity)
     {
-        entity.CurrentTile = this;
-        this.Entity = entity;
+        entity.GetComponent<EnemyMovement>().SetCurrentTile(this);
+        this.EnemyEntity = entity;
         ReRender();
     }
 
@@ -180,22 +180,22 @@ public class MapTile : MonoBehaviour, IPointerClickHandler
     public bool IsOccupied
     {
         // TODO: Remove OCCUPIED state if we don't really need it
-        get => this.Entity != null || this.state == TileState.OCCUPIED || this.state == TileState.TERRAIN;
+        get => this.EnemyEntity != null || this.state == TileState.OCCUPIED || this.state == TileState.TERRAIN;
     }
 
     public void MoveEntityToOtherMapTile(MapTile other)
     {
-        if (this.Entity == null)
+        if (this.EnemyEntity == null)
         {
             throw new Exception("Attempted to move null entity to other tile");
         }
-        else if (other.Entity != null)
+        else if (other.EnemyEntity != null)
         {
             throw new Exception("Attempted to move entity to occupied tile");
         }
 
         // Perform the swaperoo
-        other.SetEntity(this.Entity);
-        this.Entity = null;
+        other.SetEntity(this.EnemyEntity);
+        this.EnemyEntity = null;
     }
 }

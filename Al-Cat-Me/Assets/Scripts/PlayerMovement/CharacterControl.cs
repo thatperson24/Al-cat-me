@@ -7,7 +7,7 @@ using UnityEngine.Profiling;
 using UnityEngine.Scripting.APIUpdating;
 using Assets.Scripts.StateEffects;
 using Unity.VisualScripting;
-
+using TMPro;
 using Point = System.Drawing.Point;
 
 public class CharacterControl : MonoBehaviour
@@ -42,12 +42,18 @@ public class CharacterControl : MonoBehaviour
     private string stateOfTile = " ";
     private MapTile tile;
 
-    public int movementPoints = 5;  //amount of actions the user can take
+    public int movementPoints;  //amount of actions the user can take
+    private TextMeshProUGUI movementGUITest;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private Combat combat;
+
+    void Awake()
     {
-        //PlaceCharacter(); //Currently just placing character at (5,8) but console states otherwise
+        movementPoints = 5;
+        movementGUITest = GameObject.Find("Movement Number").GetComponent<TextMeshProUGUI>();
+        movementGUITest.text = $"{movementPoints}";
+
+        combat = GameObject.Find("CombatMap").GetComponent<Combat>();
     }
 
     // Update is called once per frame
@@ -112,11 +118,14 @@ public class CharacterControl : MonoBehaviour
                 movementPoints--;
             }
 
-            //Debug.Log("Characters on Tile: " + currentTile.GetComponent<MapTile>());
+            movementGUITest.text = $"{movementPoints}";
 
             if (movementPoints == 0)
             {
+                combat.DestroyAllSpells();
                 StartCoroutine(waitForEnemy(2f));
+                combat.DrawCards(5);
+                 
             }
         }
         //Might want to consider a confirm button
@@ -187,6 +196,7 @@ public class CharacterControl : MonoBehaviour
         yield return new WaitForSeconds(delayForEnemy);
         movementPoints = 5;
         Debug.Log("Enemies have attacked");
+        movementGUITest.text = $"{movementPoints}";
     }
 
     public void SetTile(MapTile tile)

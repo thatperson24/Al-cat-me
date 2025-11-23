@@ -166,7 +166,10 @@ public class MapTile : MonoBehaviour, IPointerClickHandler
             GameObject.Find("Character").GetComponent<CharacterControl>().SetIsLocked(false);
             Debug.Log($"{gameObject.name} is attacked");
             Debug.Log($"{combat.GetCurrentSpell().GetSpellName()}");
-            transform.GetChild(1).GetComponent<Enemy>().TakeDamage(combat.GetCurrentSpell().GetDamage());
+            if (transform.childCount > 1)
+            {
+                transform.GetChild(1).GetComponent<Enemy>().TakeDamage(combat.GetCurrentSpell().GetDamage());
+            }
         }
     }
 

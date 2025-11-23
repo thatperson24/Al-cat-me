@@ -1,10 +1,8 @@
-
 using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Drawing;
 using static UnityEngine.Rendering.DebugUI.Table;
-
 
 public class EncounterMap : MonoBehaviour
 {
@@ -12,6 +10,7 @@ public class EncounterMap : MonoBehaviour
     [SerializeField] private GameObject MapTilePrefab;
     [SerializeField] private GameObject CharacterPrefab;
     [SerializeField] private List<GameObject> EnemyPrefabs;
+    private int numEnemies;
 
     public MapTile[][] Tiles;
     private GameObject character;
@@ -20,12 +19,14 @@ public class EncounterMap : MonoBehaviour
 
     private const char END_ROW_CHAR = 'X';
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        numEnemies = 3;
         this.Tiles = GenerateMap();
         this.CenterMap();
-        this.PlaceEnemies(3);
+        this.PlaceEnemies(numEnemies);
 
         indicated = new List<MapTile>();
         character = SpawnCharacter();
@@ -128,7 +129,6 @@ public class EncounterMap : MonoBehaviour
         indicated.Clear();
     }
 
-
     /*
     Place enemies on the map
     */
@@ -155,5 +155,10 @@ public class EncounterMap : MonoBehaviour
                 numEnemies--;
             }
         }
+    }
+
+    public void ReduceEnemies()
+    {
+        numEnemies--;
     }
 }

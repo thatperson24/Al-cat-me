@@ -56,10 +56,10 @@ public class Combat : MonoBehaviour
 
     public void DrawCards(int numCards)
     {
-        StartCoroutine(Move(0));
+        StartCoroutine(MoveCard(0));
     }
 
-    private IEnumerator Move(int cardNum)
+    private IEnumerator MoveCard(int cardNum)
     {
         GameObject newCard = Instantiate(cardPrefab, GameObject.Find("Cards").transform);
         Spell spell = ScriptableObject.CreateInstance<Spell>();
@@ -76,7 +76,7 @@ public class Combat : MonoBehaviour
         //Make a note of where we are and where we want to go
         Vector2 startPos = CardSpawn.position;
         Vector2 endPos = cardSlots[cardNum].position;
-
+        newCard.transform.SetParent(cardSlots[cardNum]);
         float elaspedTime = 0;
         while (elaspedTime < moveDuration)
         {
@@ -90,7 +90,7 @@ public class Combat : MonoBehaviour
         newCard.transform.position = endPos;
         if (cardNum + 1 < cardSlots.Count)
         {
-            StartCoroutine(Move(++cardNum));
+            StartCoroutine(MoveCard(++cardNum));
         }
     }
 
@@ -107,5 +107,16 @@ public class Combat : MonoBehaviour
     public Spell GetCurrentSpell()
     {
         return currentSpell.GetSpell();
+    }
+
+    public void DestroyAllSpells()
+    {
+        foreach (Transform card in cardSlots)
+        {
+            if(card.childCount > 0)
+            {
+                Destroy(card.GetChild(0).gameObject);
+            }
+        }
     }
 }

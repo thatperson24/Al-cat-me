@@ -18,6 +18,7 @@ public class EncounterMap : MonoBehaviour
     private SpellCard card;
 
     private const char END_ROW_CHAR = 'X';
+    private const float SPAWN_DISTANCE_THRESHOLD = 4f;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -26,10 +27,11 @@ public class EncounterMap : MonoBehaviour
         numEnemies = 3;
         this.Tiles = GenerateMap();
         this.CenterMap();
-        this.PlaceEnemies(numEnemies);
-
         indicated = new List<MapTile>();
         character = SpawnCharacter();
+
+        // Place enemies after character is spawned to avoid placing them too close
+        this.PlaceEnemies(numEnemies);
     }
 
     // Update is called once per frame
@@ -143,7 +145,7 @@ public class EncounterMap : MonoBehaviour
             int targetCol = Random.Range(0, this.Tiles[targetRow].Length);
 
             MapTile tile = this.Tiles[targetRow][targetCol];
-            if (!tile.IsOccupied && tile.CanBeOccupied)
+            if (!tile.IsOccupied && tile.CanBeOccupied && !IsSpawnTooCloseToPlayer(new Point(targetCol, targetRow)))
             {
                 Debug.Log($"Placing enemy at ({targetRow}, {targetCol})");
                 GameObject newEnemy = Instantiate(EnemyPrefabs[Random.Range(0, EnemyPrefabs.Count)]);
@@ -160,5 +162,11 @@ public class EncounterMap : MonoBehaviour
     public void ReduceEnemies()
     {
         numEnemies--;
+    }
+
+    private bool IsSpawnTooCloseToPlayer(Point point)
+    {
+        Point characterPos = this.character.GetComponent<CharacterControl>().GetPosition();
+        return DistanceUtils.PythagDistanceBetweenPoints(point, characterPos) < SPAWN_DISTANCE_THRESHOLD;
     }
 }

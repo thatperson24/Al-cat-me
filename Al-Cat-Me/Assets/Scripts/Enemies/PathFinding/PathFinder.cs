@@ -162,11 +162,10 @@ namespace PathFinder
 
         protected override bool IsDestination(Point position)
         {
-            double trueDistance = Math.Sqrt(
-                Math.Pow(Math.Abs(position.X - destination.X), 2)
-                + Math.Pow(Math.Abs(position.Y - destination.Y), 2)
-            );
-            bool isSolved = (position == destination) || trueDistance < proximityThreshold;
+            double distance = GetDistance(position, destination);
+
+            bool isSolved = (position == destination)
+                || (distance < proximityThreshold && (position.X == destination.X || position.Y == destination.Y));
 
             if (isSolved)
             {

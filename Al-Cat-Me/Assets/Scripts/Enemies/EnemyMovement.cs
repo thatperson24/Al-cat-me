@@ -16,7 +16,7 @@ public class EnemyMovement : MonoBehaviour
     private bool IsCoolingDown = true;
 
     // Time in seconds to move between one grid position to the next
-    [SerializeField] private float moveDuration = 0.5f;
+    [SerializeField] private float moveDuration = 0.2f;
     [SerializeField] private float moveDelay = 2f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -33,11 +33,15 @@ public class EnemyMovement : MonoBehaviour
             // Create the cooldown
             StartCoroutine(AwaitCooldown(moveDelay));
         }
-        else if (!IsMoving)
+        else if (!IsMoving && this.Map.turnTracker.IsEnemyTurn())
         {
-            // Move 1 square toward the player
-            List<Point> path = CalculatePathToPlayer();
-            FollowPathToPlayer(path);
+            CharacterControl characterControl = this.Map.GetCharacterControl();
+            if (!characterControl.isMoving)
+            {
+                // Move 1 square toward the player
+                List<Point> path = CalculatePathToPlayer();
+                FollowPathToPlayer(path);
+            }
         }
     }
 
@@ -121,6 +125,7 @@ public class EnemyMovement : MonoBehaviour
 
         // We are no longer moving so we can accept another input
         this.IsMoving = false;
+        this.Map.turnTracker.EndEnemyTurn();
     }
 
     private IEnumerator AwaitCooldown(float delay)

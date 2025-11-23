@@ -37,8 +37,6 @@ public class CharacterControl : MonoBehaviour
 
     private ElementalStateMachine elementalStateMachine;
 
-    // private TileState tileState;
-
     private string stateOfTile = " ";
     private MapTile tile;
 
@@ -60,7 +58,7 @@ public class CharacterControl : MonoBehaviour
     void Update()
     {
         //This will only process one move at a time
-        if (!isMoving && !isLocked && movementPoints != 0)
+        if (!isMoving && !isLocked && movementPoints != 0 && this.encounterMap.turnTracker.IsPlayerTurn())
         {
             //Accomodate two different types of moving
             System.Func<KeyCode, bool> inputFunction;
@@ -122,13 +120,15 @@ public class CharacterControl : MonoBehaviour
 
             if (movementPoints == 0)
             {
+                // Complete the player's turn
                 combat.DestroyAllSpells();
-                StartCoroutine(waitForEnemy(2f));
+                this.encounterMap.turnTracker.EndPlayerTurn();
+
+                StartCoroutine(waitForEnemy(1f));
                 combat.DrawCards(5);
-                 
             }
         }
-        //Might want to consider a confirm button
+        // Might want to consider a confirm button
     }
 
     private void AttemptMovement(int nextRow, int nextCol, Vector2 dir)
@@ -208,7 +208,7 @@ public class CharacterControl : MonoBehaviour
     {
         return this.tile.MyPosition;
     }
-    
+
     public void SpendMovement(int cost)
     {
         movementPoints -= cost;

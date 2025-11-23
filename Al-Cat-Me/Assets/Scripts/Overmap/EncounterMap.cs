@@ -14,6 +14,7 @@ public class EncounterMap : MonoBehaviour
 
     public MapTile[][] Tiles;
     private GameObject character;
+    public TurnTracker turnTracker;
     private List<MapTile> indicated;
     private SpellCard card;
 
@@ -28,6 +29,7 @@ public class EncounterMap : MonoBehaviour
         this.Tiles = GenerateMap();
         this.CenterMap();
         indicated = new List<MapTile>();
+        this.turnTracker = new();
         character = SpawnCharacter();
 
         // Place enemies after character is spawned to avoid placing them too close

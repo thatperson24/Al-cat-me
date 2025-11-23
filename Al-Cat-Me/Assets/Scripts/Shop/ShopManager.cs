@@ -64,6 +64,7 @@ public class ShopManager : MonoBehaviour
     void setAngy()
     {
         shopkeeperImage.GetComponent<Image>().sprite = Resources.Load<Sprite>("shopkeeper/Shopkeeper_Fox_Angy");
+        animTimer = 0f;
         isDefault = false;
     }
 
@@ -71,6 +72,7 @@ public class ShopManager : MonoBehaviour
     {
         shopkeeperImage.GetComponent<Image>().sprite = Resources.Load<Sprite>("shopkeeper/Shopkeeper_Fox_Happy");
         shopkeeperText.GetComponent<TextMeshProUGUI>().SetText("Well now, thank you kindly!");
+        animTimer = 0f;
         isDefault = false;
     }
 }

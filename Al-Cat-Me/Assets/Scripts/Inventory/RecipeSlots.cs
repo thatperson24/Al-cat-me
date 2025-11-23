@@ -63,8 +63,16 @@ public class RecipeSlots : MonoBehaviour
     {
         Spell newSpell = ScriptableObject.CreateInstance<Spell>();
         newSpell.SetStats(spellName.text, stats);
-        newSpell.name = spellName.text;
 
+        if (spellName.text.Equals(""))
+        {
+            newSpell.name = GenerateDefaultName();
+        }
+        else
+        {
+            newSpell.name = spellName.text;
+        }
+        Debug.Log("newSpell name: " + newSpell.name);
         gameController.addSpell(newSpell);
         ClearRecipe();
     }
@@ -79,4 +87,31 @@ public class RecipeSlots : MonoBehaviour
             }
         }
     }
+
+    private string GenerateDefaultName()
+    {
+        // Labels for each stat index
+        string[] statNames = { "Strike", "Reach", "Splash", "Focus", "Guard", "Tempo" };
+
+        // Find the highest value
+        int bestValue = int.MinValue;
+        for (int i = 0; i < stats.Length; i++)
+        {
+            if (stats[i] > bestValue)
+                bestValue = stats[i];
+        }
+
+        // Collect all stat names that match the highest value
+        List<string> bestStats = new List<string>();
+        for (int i = 0; i < stats.Length; i++)
+        {
+            if (stats[i] == bestValue)
+                bestStats.Add(statNames[i]);
+        }
+
+        // Join them into a single name
+        string combined = string.Join(" ", bestStats);
+        return $"{combined} {bestValue}";
+    }
+
 }

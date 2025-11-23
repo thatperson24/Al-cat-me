@@ -28,7 +28,6 @@ public class EncounterMap : MonoBehaviour
         this.CenterMap();
         this.PlaceEnemies(numEnemies);
 
-        MapTile newTile = Tiles[0][0];
         indicated = new List<MapTile>();
         character = SpawnCharacter();
     }
@@ -81,12 +80,12 @@ public class EncounterMap : MonoBehaviour
         int newX = (maxColumns % 2 == 0)
             ? (maxColumns / 2) + 1
             : (maxColumns / 2);
-        
-        GameObject newCharacter = Instantiate(CharacterPrefab, Tiles[0][newX].gameObject.transform);
+
+        MapTile destTile = Tiles[0][newX];
+        GameObject newCharacter = Instantiate(CharacterPrefab, destTile.gameObject.transform);
         newCharacter.name = "Character";
         newCharacter.GetComponent<CharacterControl>().SetEncounterMap(this);
-        newCharacter.GetComponent<CharacterControl>().SetRow(0);
-        newCharacter.GetComponent<CharacterControl>().SetCol(newX);
+        newCharacter.GetComponent<CharacterControl>().SetTile(destTile);
 
         return newCharacter;
     }
@@ -108,7 +107,12 @@ public class EncounterMap : MonoBehaviour
 
     public MapTile[][] GetMapTiles()
     {
-        return this.Tiles; 
+        return this.Tiles;
+    }
+
+    public CharacterControl GetCharacterControl()
+    {
+        return this.character.GetComponent<CharacterControl>();
     }
 
     public void AddIndicated(MapTile tile)
@@ -141,22 +145,13 @@ public class EncounterMap : MonoBehaviour
             MapTile tile = this.Tiles[targetRow][targetCol];
             if (!tile.IsOccupied && tile.CanBeOccupied)
             {
-                // TODO: do something useful with enemies
                 Debug.Log($"Placing enemy at ({targetRow}, {targetCol})");
-                GameObject newEnemy = Instantiate(EnemyPrefabs[Random.Range(0,EnemyPrefabs.Count)]);
-                newEnemy.transform.SetParent(tile.gameObject.transform);
-                newEnemy.transform.localPosition = new Vector3(0,0,-1);
-                newEnemy.GetComponent<Enemy>().SetEncounterMap(this);
-                newEnemy.GetComponent<Enemy>().SetMapTile(tile);
-                OccupyingEntity entity = new OccupyingEntity();
-                tile.SetEntity(entity);
+                GameObject newEnemy = Instantiate(EnemyPrefabs[Random.Range(0, EnemyPrefabs.Count)]);
+                newEnemy.transform.SetParent(Tiles[targetRow][targetCol].gameObject.transform);
+                newEnemy.transform.localPosition = new Vector3(0, 0, -1);
+                newEnemy.GetComponent<EnemyMovement>().SetMap(this);
 
-                // Calculate path from enemy -> player
-                // TODO: get player location instead of assuming map corner
-                entity.CalculatePathToPlayer(
-                    map: this.Tiles,
-                    destination: new Point(numCols - 1, numRows - 1)
-                );
+                tile.SetEntity(newEnemy);
                 numEnemies--;
             }
         }

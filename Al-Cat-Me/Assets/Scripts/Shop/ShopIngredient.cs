@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using System.Linq;
 
 public class ShopIngredient : MonoBehaviour
 {
@@ -16,9 +17,8 @@ public class ShopIngredient : MonoBehaviour
         gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
         available = true;
 
-        ingredient = gameController.getRandomIngredient();
+        ingredient = gameController.getIngredient();
         price = ingredientPrice();
-        Debug.Log("ingredient name string: " + ingredient.GetName());
         ingredientText.GetComponent<TextMeshProUGUI>().SetText(ingredient.GetName() + "\n" + price + " Gold");
     }
 
@@ -41,8 +41,7 @@ public class ShopIngredient : MonoBehaviour
     private int ingredientPrice()
     {
         List<int> stats = new List<int>(ingredient.GetStats());
-        int price = 0;
-        stats.ForEach(stat => price += stat);
-        return price;
+        int price = ingredient.GetStats().Where(stat => stat > 0).Sum();
+        return price == 0 ? 1 : price;
     }
 }

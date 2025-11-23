@@ -8,8 +8,7 @@ using PathFinder;
 
 public static class OccupyingEntity
 {
-    private const double PROXIMITY_THRESHOLD = 2;
-    // public MapTile CurrentTile;
+    private const double PROXIMITY_THRESHOLD = 4;
 
     /// <summary>
     /// Calculates relatively optimal path to get within range of attacking the player

@@ -8,9 +8,10 @@ using UnityEngine.Scripting.APIUpdating;
 using Assets.Scripts.StateEffects;
 using Unity.VisualScripting;
 
+using Point = System.Drawing.Point;
+
 public class CharacterControl : MonoBehaviour
 {
-
     public float movementSpeed = 5f;
     public Transform moveLocation;
 
@@ -19,14 +20,24 @@ public class CharacterControl : MonoBehaviour
     private bool isLocked = false;
 
     private EncounterMap encounterMap;
-    private int row;
-    private int col;
+    private int row
+    {
+        get
+        {
+            return this.tile.MyPosition.Y;
+        }
+    }
+    private int col
+    {
+        get
+        {
+            return this.tile.MyPosition.X;
+        }
+    }
+
     private ElementalStateMachine elementalStateMachine;
 
     // private TileState tileState;
-
-    private int rowCopy;
-    private int colCopy;
 
     private string stateOfTile = " ";
     private MapTile tile;
@@ -106,7 +117,6 @@ public class CharacterControl : MonoBehaviour
             if (movementPoints == 0)
             {
                 StartCoroutine(waitForEnemy(2f));
-
             }
         }
         //Might want to consider a confirm button
@@ -114,7 +124,8 @@ public class CharacterControl : MonoBehaviour
 
     private void AttemptMovement(int nextRow, int nextCol, Vector2 dir)
     {
-        if (encounterMap.GetMapTiles()[nextRow][nextCol].IsOccupied == true)
+        MapTile nextTile = encounterMap.GetMapTiles()[nextRow][nextCol];
+        if (nextTile.IsOccupied == true)
         {
             Debug.Log("There is a occupied block above");
         }
@@ -122,9 +133,8 @@ public class CharacterControl : MonoBehaviour
         {
             StartCoroutine(Move(dir));
 
-            row = nextRow;
-            col = nextCol;
-            gameObject.transform.SetParent(encounterMap.GetMapTiles()[nextRow][nextCol].gameObject.transform);
+            this.tile = nextTile;
+            gameObject.transform.SetParent(nextTile.gameObject.transform);
             movementPoints--;
         }
     }
@@ -160,14 +170,6 @@ public class CharacterControl : MonoBehaviour
     {
         encounterMap = em;
     }
-    public void SetRow(int newRow)
-    {
-        row = newRow;
-    }
-    public void SetCol(int newCol)
-    {
-        col = newCol;
-    }
 
     public int GetRow() { return row; }
     public int GetCol() { return col; }
@@ -182,9 +184,18 @@ public class CharacterControl : MonoBehaviour
     private IEnumerator waitForEnemy(float delayForEnemy)
     {
         Debug.Log("Waiting For Opponent to move");
-        yield return new WaitForSeconds(delayForEnemy); // Wait for 3 seconds
+        yield return new WaitForSeconds(delayForEnemy);
         movementPoints = 5;
         Debug.Log("Enemies have attacked");
     }
 
+    public void SetTile(MapTile tile)
+    {
+        this.tile = tile;
+    }
+
+    public Point GetPosition()
+    {
+        return this.tile.MyPosition;
+    }
 }

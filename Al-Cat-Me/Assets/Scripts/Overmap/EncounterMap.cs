@@ -80,11 +80,11 @@ public class EncounterMap : MonoBehaviour
             ? (maxColumns / 2) + 1
             : (maxColumns / 2);
 
-        GameObject newCharacter = Instantiate(CharacterPrefab, Tiles[0][newX].gameObject.transform);
+        MapTile destTile = Tiles[0][newX];
+        GameObject newCharacter = Instantiate(CharacterPrefab, destTile.gameObject.transform);
         newCharacter.name = "Character";
         newCharacter.GetComponent<CharacterControl>().SetEncounterMap(this);
-        newCharacter.GetComponent<CharacterControl>().SetRow(0);
-        newCharacter.GetComponent<CharacterControl>().SetCol(newX);
+        newCharacter.GetComponent<CharacterControl>().SetTile(destTile);
 
         return newCharacter;
     }
@@ -107,6 +107,11 @@ public class EncounterMap : MonoBehaviour
     public MapTile[][] GetMapTiles()
     {
         return this.Tiles;
+    }
+
+    public CharacterControl GetCharacterControl()
+    {
+        return this.character.GetComponent<CharacterControl>();
     }
 
     public void AddIndicated(MapTile tile)
@@ -144,7 +149,7 @@ public class EncounterMap : MonoBehaviour
                 GameObject newEnemy = Instantiate(EnemyPrefabs[Random.Range(0, EnemyPrefabs.Count)]);
                 newEnemy.transform.SetParent(Tiles[targetRow][targetCol].gameObject.transform);
                 newEnemy.transform.localPosition = new Vector3(0, 0, -1);
-                newEnemy.GetComponent<EnemyMovement>().SetMap(this.Tiles);
+                newEnemy.GetComponent<EnemyMovement>().SetMap(this);
 
                 tile.SetEntity(newEnemy);
                 numEnemies--;

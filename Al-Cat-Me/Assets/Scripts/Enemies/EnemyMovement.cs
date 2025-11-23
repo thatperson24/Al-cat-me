@@ -1,17 +1,21 @@
 using UnityEngine;
-using System.Drawing;
 using System.Collections.Generic;
 using System.Collections;
+
+using Point = System.Drawing.Point;
+using Size = System.Drawing.Size;
 
 public class EnemyMovement : MonoBehaviour
 {
     // Track parent state
     private MapTile CurrentTile;
-    private MapTile[][] MapTiles;
+    private EncounterMap Map;
 
     // Track movement state
     private bool IsMoving = false;
-    [SerializeField] private float moveDuration = 2.5f;//Time in seconds to move between one grid position to the next
+    private bool IsCoolingDown = true;
+    [SerializeField] private float moveDuration = 0.5f;//Time in seconds to move between one grid position to the next
+    [SerializeField] private float moveDelay = 2f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -22,28 +26,16 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!IsMoving)
+        if (IsCoolingDown)
         {
-            // Calculate path from enemy -> player
-            int numRows = this.MapTiles.Length;
-            int numCols = this.MapTiles[0].Length;
-            List<Point> path = OccupyingEntity.CalculatePathToPlayer(
-                map: this.MapTiles,
-                currentTile: this.CurrentTile,
-                // TODO: get player location instead of assuming map corner
-                destination: new Point(numCols - 1, numRows - 1)
-            );
-
-            // Check if we need to move
-            if (path.Count > 1)
-            {
-                Point nextPoint = path[path.Count - 2]; // last item is current position
-                var delta = nextPoint - new Size(this.CurrentTile.MyPosition);
-                Debug.Log($"Moving in direction: {delta}");
-                AttemptMovement(nextPoint.Y, nextPoint.X, new Vector2(delta.X, delta.Y));
-
-            }
-            this.IsMoving = true;
+            // Create the cooldown
+            StartCoroutine(AwaitCooldown(moveDelay));
+        }
+        else if (!IsMoving)
+        {
+            // Move 1 square toward the player
+            List<Point> path = CalculatePathToPlayer();
+            FollowPathToPlayer(path);
         }
     }
 
@@ -52,22 +44,55 @@ public class EnemyMovement : MonoBehaviour
         this.CurrentTile = tile;
     }
 
-    public void SetMap(MapTile[][] map)
+    public void SetMap(EncounterMap map)
     {
-        this.MapTiles = map;
+        this.Map = map;
+    }
+
+    private List<Point> CalculatePathToPlayer()
+    {
+        int numRows = this.Map.Tiles.Length;
+        int numCols = this.Map.Tiles[0].Length;
+        CharacterControl characterControl = this.Map.GetCharacterControl();
+
+        // TODO: reverse the list to work with it more intuitively
+        Debug.Log($"Calculating path to player at {characterControl.GetPosition()}");
+        return OccupyingEntity.CalculatePathToPlayer(
+            map: this.Map.Tiles,
+            currentTile: this.CurrentTile,
+            destination: characterControl.GetPosition()
+        );
+    }
+
+    private void FollowPathToPlayer(List<Point> path)
+    {
+        // Check if we need to move
+        if (path.Count > 1)
+        {
+            this.IsMoving = true;
+            Point nextPoint = path[path.Count - 2]; // last item is current position
+            var delta = nextPoint - new Size(this.CurrentTile.MyPosition);
+            Debug.Log($"Moving in direction: {delta}");
+            AttemptMovement(nextPoint.Y, nextPoint.X, new Vector2(delta.X, delta.Y));
+        }
+        else
+        {
+            Debug.Log("This enemy is close enough to the user");
+        }
     }
 
     private void AttemptMovement(int nextRow, int nextCol, Vector2 dir)
     {
-        if (this.MapTiles[nextRow][nextCol].IsOccupied == true)
+        if (this.Map.Tiles[nextRow][nextCol].IsOccupied == true)
         {
             Debug.LogError($"Trying to move into an occupied cell ({nextRow}, {nextCol}). Applying Ostrich algorithm: ignore.");
         }
         else
         {
             StartCoroutine(Move(dir));
-            this.CurrentTile = this.MapTiles[nextRow][nextCol];
-            gameObject.transform.SetParent(this.MapTiles[nextRow][nextCol].gameObject.transform);
+            this.CurrentTile.MoveEntityToOtherMapTile(this.Map.Tiles[nextRow][nextCol]);
+            gameObject.transform.SetParent(this.Map.Tiles[nextRow][nextCol].gameObject.transform);
+            this.IsCoolingDown = true;
         }
     }
 
@@ -94,5 +119,12 @@ public class EnemyMovement : MonoBehaviour
 
         // We are no longer moving so we can accept another input
         this.IsMoving = false;
+    }
+
+    private IEnumerator AwaitCooldown(float delay)
+    {
+        Debug.Log($"Waiting {delay} seconds after enemy movement");
+        yield return new WaitForSeconds(delay);
+        this.IsCoolingDown = false;
     }
 }

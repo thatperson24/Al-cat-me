@@ -16,44 +16,55 @@ public class SpellCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     void Start()
     {
         selected = false;
-        encounterMap = GameObject.Find("CombatMap").GetComponent<EncounterMap>();        
+        encounterMap = GameObject.Find("CombatMap").GetComponent<EncounterMap>();
         gameObject.GetComponent<Button>().onClick.AddListener(ClickSpell);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void ClickSpell()
     {
         CharacterControl characterControl = GameObject.Find("Character").GetComponent<CharacterControl>();
         if (characterControl.GetIsLocked() && !selected) { return; }
-        if (!selected) {
-            GameObject.Find("CombatMap").GetComponent<Combat>().SetSpellCard(this);
+        if (!selected)
+        {
+            GameObject.Find("CombatMap")
+                .GetComponent<Combat>()
+                .SetSpellCard(this);
             characterControl.SetIsLocked(true);
             int height = characterControl.GetRow();
             int column = characterControl.GetCol();
-            for (int i = 0; i < cardSpell.GetRange(); i++) {
-                if (height + i < encounterMap.GetMapTiles().Length) { 
-                    encounterMap.GetMapTiles()[height + i][column].IndicateAttack();
-                    encounterMap.AddIndicated(encounterMap.GetMapTiles()[height + i][column]);
+            MapTile[][] mapTiles = encounterMap.GetMapTiles();
+            for (int i = 0; i < cardSpell.GetRange(); i++)
+            {
+                if (height + i < mapTiles.Length)
+                {
+                    mapTiles[height + i][column].IndicateAttack();
+                    encounterMap.AddIndicated(mapTiles[height + i][column]);
                 }
-                if (height - i >= 0) { 
-                    encounterMap.GetMapTiles()[height - i][column].IndicateAttack();
-                    encounterMap.AddIndicated(encounterMap.GetMapTiles()[height - i][column]);
+                if (height - i >= 0)
+                {
+                    mapTiles[height - i][column].IndicateAttack();
+                    encounterMap.AddIndicated(mapTiles[height - i][column]);
                 }
-                if (column + i < encounterMap.GetMapTiles().Max(tileRow => tileRow.Length)) { 
-                    encounterMap.GetMapTiles()[height][column + i].IndicateAttack();
-                    encounterMap.AddIndicated(encounterMap.GetMapTiles()[height][column + i]);
+                if (column + i < mapTiles.Max(tileRow => tileRow.Length))
+                {
+                    mapTiles[height][column + i].IndicateAttack();
+                    encounterMap.AddIndicated(mapTiles[height][column + i]);
                 }
-                if (column - i >= 0) { 
-                    encounterMap.GetMapTiles()[height][column - i].IndicateAttack();
-                    encounterMap.AddIndicated(encounterMap.GetMapTiles()[height][column - i]);                   
+                if (column - i >= 0)
+                {
+                    mapTiles[height][column - i].IndicateAttack();
+                    encounterMap.AddIndicated(mapTiles[height][column - i]);
                 }
             }
-        } else {
+        }
+        else
+        {
 
             encounterMap.ClearIndicated();
             characterControl.SetIsLocked(false);

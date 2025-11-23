@@ -68,8 +68,8 @@ namespace PathFinder
         )
         {
             this.gameMap = gameMap;
-            this.mapWidth = gameMap.Length;
-            this.mapHeight = gameMap[0].Length; // TODO: update this if we have variable width rows
+            this.mapHeight = gameMap.Length;
+            this.mapWidth = gameMap[0].Length; // TODO: update this if we have variable width rows
             this.proximityThreshold = proximityThreshold;
             this.closedList = closedList;
             this.destination = destination;

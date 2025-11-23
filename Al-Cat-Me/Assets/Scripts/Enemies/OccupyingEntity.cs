@@ -6,14 +6,14 @@ using System.Drawing;
 using AStarBase;
 using PathFinder;
 
-public class OccupyingEntity
+public static class OccupyingEntity
 {
-    public MapTile CurrentTile;
+    private const double PROXIMITY_THRESHOLD = 4;
 
     /// <summary>
     /// Calculates relatively optimal path to get within range of attacking the player
     /// </summary>
-    public void CalculatePathToPlayer(MapTile[][] map, Point destination)
+    public static List<Point> CalculatePathToPlayer(MapTile[][] map, MapTile currentTile, Point destination)
     {
         PriorityQueue<AStar<Point, Cost>.Node> openList = new PriorityQueue<AStar<Point, Cost>.Node>();
         Dictionary<Point, Cost> closedList = new Dictionary<Point, Cost>();
@@ -21,26 +21,27 @@ public class OccupyingEntity
         PathSolver solver = new PathSolver();
         solver.Graph(
             gameMap: map,
-            source: this.CurrentTile.MyPosition,
+            source: currentTile.MyPosition,
             destination: destination,
-            proximityThreshold: 0, // TODO: set threshold to "Range" of enemy's attack
+            proximityThreshold: PROXIMITY_THRESHOLD, // TODO: set threshold to dynamic "Range" of enemy's attack
             openList,
             closedList
         );
+
         // TODO: should actually check that `solver.solution.HasValue` before assuming we found a path
         Point position = solver.solution.Value.position;
-        List<Point> debugPath = new();
-        debugPath.Add(position);
+        List<Point> result = new();
+        result.Add(position);
 
         Cost cost = solver.solution.Value.cost;
         do
         {
             position = solver.ToPosition(cost.parentIndex);
-            debugPath.Add(position);
+            result.Add(position);
             cost = closedList[position];
-            // TODO: Move the entity to the position
         } while (cost.parentIndex >= 0);
 
-        Debug.Log($"Found path: {string.Join(" -> ", debugPath)}");
+        Debug.Log($"Found path: {string.Join(" -> ", result)}");
+        return result;
     }
 }

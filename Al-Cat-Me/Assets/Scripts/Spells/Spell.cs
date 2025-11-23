@@ -10,6 +10,7 @@ public class Spell : ScriptableObject
     [SerializeField] private int castType;
     [SerializeField] private int blocking;
     [SerializeField] private int delay;
+    private int cost;
 
     public void SetStats(string name, int[] stats)
     {

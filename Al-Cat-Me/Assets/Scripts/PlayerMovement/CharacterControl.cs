@@ -7,6 +7,7 @@ using UnityEngine.Profiling;
 using UnityEngine.Scripting.APIUpdating;
 using Assets.Scripts.StateEffects;
 using Unity.VisualScripting;
+using TMPro;
 
 public class CharacterControl : MonoBehaviour
 {
@@ -33,12 +34,18 @@ public class CharacterControl : MonoBehaviour
     private string stateOfTile = " "; 
     private MapTile tile;  
 
-    public int movementPoints = 5;  //amount of actions the user can take
+    public int movementPoints;  //amount of actions the user can take
+    private TextMeshProUGUI movementGUITest;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private Combat combat;
+
+    void Awake()
     {
-        //PlaceCharacter(); //Currently just placing character at (5,8) but console states otherwise
+        movementPoints = 5;
+        movementGUITest = GameObject.Find("Movement Number").GetComponent<TextMeshProUGUI>();
+        movementGUITest.text = $"{movementPoints}";
+
+        combat = GameObject.Find("CombatMap").GetComponent<Combat>();
     }
 
     // Update is called once per frame
@@ -58,22 +65,16 @@ public class CharacterControl : MonoBehaviour
             //Up Movement
             if ((inputFunction(KeyCode.UpArrow) || inputFunction(KeyCode.W)) && ((row + 1 < encounterMap.GetMapTiles().Length)))
             {
-
                 rowCopy = row + 1;
 
                 if((encounterMap.GetMapTiles()[rowCopy][col].IsOccupied == true))
                 {
                     Debug.Log("There is a occupied block above");
                 }
-
                 else
                 {
                     //validSpace();
                     StartCoroutine(Move(Vector2.up));
-
-                    // Debug.Log("Current State is: " + encounterMap.GetMapTiles()[row][col].IsOccupied);
-                    // Debug.Log("Row: " + row);
-                    
                     gameObject.transform.SetParent(encounterMap.GetMapTiles()[++row][col].gameObject.transform);
                     movementPoints--;
                 }
@@ -89,12 +90,9 @@ public class CharacterControl : MonoBehaviour
                 {
                     Debug.Log("There is a occupied block below");
                 }
-
                 else
                 {
-
                     StartCoroutine(Move(Vector2.down));
-                //Debug.Log("Going Down");
                     gameObject.transform.SetParent(encounterMap.GetMapTiles()[--row][col].gameObject.transform);
                     movementPoints--;
                 }
@@ -110,8 +108,6 @@ public class CharacterControl : MonoBehaviour
                 {
                     Debug.Log("There is a occupied block to the left");
                 }
-
-
                 else
                 {
                     StartCoroutine(Move(Vector2.left));
@@ -130,10 +126,8 @@ public class CharacterControl : MonoBehaviour
                 {
                     Debug.Log("There is a occupied block to the right");
                 }
-
                 else
-                {
-                    
+                {                    
                     StartCoroutine(Move(Vector2.right));
                     gameObject.transform.SetParent(encounterMap.GetMapTiles()[row][++col].gameObject.transform);
                     movementPoints--;
@@ -164,11 +158,13 @@ public class CharacterControl : MonoBehaviour
                 movementPoints--;
             }
 
-            //Debug.Log("Characters on Tile: " + currentTile.GetComponent<MapTile>());
+            movementGUITest.text = $"{movementPoints}";
 
             if (movementPoints == 0)
             {
+                combat.DestroyAllSpells();
                 StartCoroutine(waitForEnemy(2f));
+                combat.DrawCards(5);
                  
             }
         }
@@ -231,6 +227,7 @@ public class CharacterControl : MonoBehaviour
         yield return new WaitForSeconds(delayForEnemy); // Wait for 3 seconds
         movementPoints = 5;
         Debug.Log("Enemies have attacked");
+        movementGUITest.text = $"{movementPoints}";
     }
 
 }

@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         encounterMap.ReduceEnemies();
-        mapTile.SetState('U');
+        mapTile.SetEntity(null); // remove the enemy from the tile
         Destroy(gameObject);
     }
 }

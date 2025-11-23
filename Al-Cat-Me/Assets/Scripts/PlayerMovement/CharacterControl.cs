@@ -136,7 +136,7 @@ public class CharacterControl : MonoBehaviour
         MapTile nextTile = encounterMap.GetMapTiles()[nextRow][nextCol];
         if (nextTile.IsOccupied == true)
         {
-            Debug.Log("There is a occupied block above");
+            Debug.Log("Character tried to move into an occupied block");
         }
         else
         {

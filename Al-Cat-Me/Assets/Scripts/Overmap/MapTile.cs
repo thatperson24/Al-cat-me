@@ -170,6 +170,7 @@ public class MapTile : MonoBehaviour, IPointerClickHandler
             {
                 transform.GetChild(1).GetComponent<Enemy>().TakeDamage(combat.GetCurrentSpell().GetDamage());
             }
+            GameObject.Find("Character").GetComponent<CharacterControl>().SpendMovement(combat.GetCurrentSpell().GetCost());
         }
     }
 

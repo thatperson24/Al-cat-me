@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 
 public class RecipeSlots : MonoBehaviour
 {
@@ -55,8 +56,8 @@ public class RecipeSlots : MonoBehaviour
                         "\nAOE: " + stats[2] +
                         "\nCast Type: " + stats[3] +
                         "\nBlocking: " + stats[4] +
-                        "\nDelay: " + stats[5];
-
+                        "\nDelay: " + stats[5] +
+                        "\nCost: " + stats.Sum()/6;
     }
 
     public void CreateSpell()

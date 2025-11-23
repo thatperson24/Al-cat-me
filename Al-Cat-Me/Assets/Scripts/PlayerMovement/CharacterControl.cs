@@ -208,4 +208,9 @@ public class CharacterControl : MonoBehaviour
     {
         return this.tile.MyPosition;
     }
+    
+    public void SpendMovement(int cost)
+    {
+        movementPoints -= cost;
+    }
 }

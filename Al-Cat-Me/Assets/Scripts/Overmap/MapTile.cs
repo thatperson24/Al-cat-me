@@ -40,7 +40,7 @@ public class MapTile : MonoBehaviour, IPointerClickHandler
 
     [SerializeField] private char state;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    
+
     private bool isIndicated;
     private Combat combat;
 
@@ -202,5 +202,6 @@ public class MapTile : MonoBehaviour, IPointerClickHandler
         // Perform the swaperoo
         other.SetEntity(this.EnemyEntity);
         this.EnemyEntity = null;
+        this.ReRender();
     }
 }

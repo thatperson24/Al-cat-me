@@ -69,31 +69,29 @@ public class EnemyMovement : MonoBehaviour
         // Check if we need to move
         if (path.Count > 1)
         {
-            this.IsMoving = true;
             Point nextPoint = path[path.Count - 2]; // last item is current position
             var delta = nextPoint - new Size(this.CurrentTile.MyPosition);
-            Debug.Log($"Moving in direction: {delta}");
             AttemptMovement(nextPoint.Y, nextPoint.X, new Vector2(delta.X, delta.Y));
-        }
-        else
-        {
-            Debug.Log("This enemy is close enough to the user");
         }
     }
 
     private void AttemptMovement(int nextRow, int nextCol, Vector2 dir)
     {
-        if (this.Map.Tiles[nextRow][nextCol].IsOccupied == true)
+        MapTile nextTile = this.Map.Tiles[nextRow][nextCol];
+        if (nextTile.IsOccupied == true)
         {
             Debug.LogError($"Trying to move into an occupied cell ({nextRow}, {nextCol}). Applying Ostrich algorithm: ignore.");
         }
         else
         {
             StartCoroutine(Move(dir));
-            this.CurrentTile.MoveEntityToOtherMapTile(this.Map.Tiles[nextRow][nextCol]);
-            gameObject.transform.SetParent(this.Map.Tiles[nextRow][nextCol].gameObject.transform);
-            this.IsCoolingDown = true;
+            this.CurrentTile.MoveEntityToOtherMapTile(nextTile);
+            // this.CurrentTile = nextTile; // Can remove this now
+            gameObject.transform.SetParent(nextTile.gameObject.transform);
+            gameObject.transform.localPosition = new Vector3(0, 0, -1); // TODO: refactor to be common
         }
+
+        this.IsCoolingDown = true;
     }
 
     private IEnumerator Move(Vector2 direction)
@@ -123,7 +121,6 @@ public class EnemyMovement : MonoBehaviour
 
     private IEnumerator AwaitCooldown(float delay)
     {
-        Debug.Log($"Waiting {delay} seconds after enemy movement");
         yield return new WaitForSeconds(delay);
         this.IsCoolingDown = false;
     }

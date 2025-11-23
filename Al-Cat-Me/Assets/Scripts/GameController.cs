@@ -90,7 +90,6 @@ public class GameController : MonoBehaviour
 
         GameObject.Find("CombatMap").GetComponent<Combat>().ShuffleDeck();
         GameObject.Find("CombatMap").GetComponent<Combat>().DrawCards(5);
-
     }
     public List<Spell> GetSpells()
     {

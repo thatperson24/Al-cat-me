@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Spell : ScriptableObject
 {
@@ -10,6 +11,7 @@ public class Spell : ScriptableObject
     [SerializeField] private int castType;
     [SerializeField] private int blocking;
     [SerializeField] private int delay;
+    [SerializeField] private int cost;
 
     public void SetStats(string name, int[] stats)
     {
@@ -20,8 +22,10 @@ public class Spell : ScriptableObject
         castType = stats[3];
         blocking = stats[4];
         delay = stats[5];
-    }
 
+        int total = stats.Sum();
+        cost = total/6;
+    }
 
     public void CopySpell(Spell spell)
     {
@@ -32,7 +36,7 @@ public class Spell : ScriptableObject
         castType = spell.GetCastType();
         blocking = spell.GetBlocking();
         delay = spell.GetDelay();
-
+        cost = spell.GetCost();
     }
     public string GetSpellName() { return spellName;}
     public int GetDamage() { return damage; }
@@ -41,4 +45,6 @@ public class Spell : ScriptableObject
     public int GetCastType() { return castType; }
     public int GetBlocking() { return blocking; }
     public int GetDelay() { return delay; }
+
+    public int GetCost() { return cost; }
 }

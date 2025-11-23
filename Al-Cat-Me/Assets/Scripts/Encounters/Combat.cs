@@ -10,6 +10,7 @@ public class Combat : MonoBehaviour
     public GameController gameController;
 
     private List<Spell> spellList;
+    private int cardIndex;
     private List<Spell> discard;
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private Transform CardSpawn;
@@ -19,7 +20,7 @@ public class Combat : MonoBehaviour
     private SpellCard currentSpell;
     void Start()
     {
-
+        cardIndex = 0;
     }
 
     public void startEncounter()
@@ -56,14 +57,19 @@ public class Combat : MonoBehaviour
 
     public void DrawCards(int numCards)
     {
-        StartCoroutine(Move(0));
+        StartCoroutine(MoveCard(0));
     }
 
-    private IEnumerator Move(int cardNum)
+    private IEnumerator MoveCard(int cardNum)
     {
+        
+        if (cardIndex == spellList.Count) {
+            ShuffleDeck();
+            cardIndex = 0;
+        }
         GameObject newCard = Instantiate(cardPrefab, GameObject.Find("Cards").transform);
         Spell spell = ScriptableObject.CreateInstance<Spell>();
-        spell.CopySpell(spellList[cardNum]);
+        spell.CopySpell(spellList[cardIndex]);
         newCard.GetComponent<SpellCard>().SetSpell(spell);
         newCard.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = spell.GetSpellName();
         newCard.transform.GetChild(1).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Damage: " + spell.GetDamage() +
@@ -71,12 +77,13 @@ public class Combat : MonoBehaviour
                                                                                                     "\nAOE: " + spell.GetAoe() +
                                                                                                     "\nCast Type: " + spell.GetType() +
                                                                                                     "\nBlocking: " + spell.GetBlocking() +
-                                                                                                    "\nDelay: " + spell.GetDelay(); 
+                                                                                                    "\nDelay: " + spell.GetDelay() +
+                                                                                                    "\nCost: " + spell.GetCost(); 
         float moveDuration = .25f;
         //Make a note of where we are and where we want to go
         Vector2 startPos = CardSpawn.position;
         Vector2 endPos = cardSlots[cardNum].position;
-
+        newCard.transform.SetParent(cardSlots[cardNum]);
         float elaspedTime = 0;
         while (elaspedTime < moveDuration)
         {
@@ -88,9 +95,11 @@ public class Combat : MonoBehaviour
 
         //Make sure we go where we want
         newCard.transform.position = endPos;
+        
+        cardIndex++;
         if (cardNum + 1 < cardSlots.Count)
         {
-            StartCoroutine(Move(++cardNum));
+            StartCoroutine(MoveCard(++cardNum));
         }
     }
 
@@ -107,5 +116,16 @@ public class Combat : MonoBehaviour
     public Spell GetCurrentSpell()
     {
         return currentSpell.GetSpell();
+    }
+
+    public void DestroyAllSpells()
+    {
+        foreach (Transform card in cardSlots)
+        {
+            if(card.childCount > 0)
+            {
+                Destroy(card.GetChild(0).gameObject);
+            }
+        }
     }
 }

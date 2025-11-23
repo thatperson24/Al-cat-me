@@ -12,9 +12,11 @@ public class EncounterMap : MonoBehaviour
     [SerializeField] private GameObject MapTilePrefab;
     [SerializeField] private GameObject CharacterPrefab;
     [SerializeField] private List<GameObject> EnemyPrefabs;
+    private int numEnemies;
 
     public MapTile[][] Tiles;
     private GameObject character;
+    public TurnTracker turnTracker;
     private List<MapTile> indicated;
     private SpellCard card;
 
@@ -24,16 +26,19 @@ public class EncounterMap : MonoBehaviour
     private System.Random rng = new System.Random();
 
     private const char END_ROW_CHAR = 'X';
+    private const float SPAWN_DISTANCE_THRESHOLD = 4f;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        numEnemies = 3;
         // Tomfoolery levels
         tomfooleryLevels = new List<string>
         {
             // Smiley Face level
             "UUUUUUUUUUUUUUUXUUUUUUUUUUUUUUUXUUUUUUUUUUUUUUUXUUUUUUUUUUUUUUUXUUUUTUUUUUTUUUUXUUUUUUUUUUUUUUUXUUUUUUUUUUUUUUUXUUUUUUUUUUUUUUUXUUUUUUUUUUUUUUUXUUUUUUUUUUUUUUUXUUUUUUTTTUUUUUUXUUUUTTTTTTTUUUUXUUUUUTTTTTUUUUUXUUUUUUUUUUUUUUUXUUUUUUUUUUUUUUUX",
-            
+
             // Death box
             "TTTTTTTTTTTTTTTXTUUUUUUUUUUUUUTXTUUUUUUUUUUUUUTXTMMMMMMMMMMMMMTXTUUUUUUUUUUUUUTXTUUUUUUUUUUUUUTXTBBBBBBBBBBBBBTXTUUUUUUUUUUUUUTXTWWWWWWWWWWWWWTXTUUUUUUUUUUUUUTXTUUUUUUUUUUUUUTXTEEEEEEEEEEEEETXTUUUUUUUUUUUUUTXTUUUUUUUUUUUUUTXTTTTTTTTTTTTTTTX"
         };
@@ -89,11 +94,13 @@ public class EncounterMap : MonoBehaviour
 
         this.Tiles = GenerateMap();
         this.CenterMap();
-        this.PlaceEnemies(3);
-
         indicated = new List<MapTile>();
+        this.turnTracker = new();
         character = SpawnCharacter();
 
+
+        // Place enemies after character is spawned to avoid placing them too close
+        this.PlaceEnemies(numEnemies);
     }
 
     // Update is called once per frame
@@ -193,7 +200,6 @@ public class EncounterMap : MonoBehaviour
         indicated.Clear();
     }
 
-
     /*
     Place enemies on the map
     */
@@ -208,7 +214,7 @@ public class EncounterMap : MonoBehaviour
             int targetCol = Random.Range(0, this.Tiles[targetRow].Length);
 
             MapTile tile = this.Tiles[targetRow][targetCol];
-            if (!tile.IsOccupied && tile.CanBeOccupied)
+            if (!tile.IsOccupied && tile.CanBeOccupied && !IsSpawnTooCloseToPlayer(new Point(targetCol, targetRow)))
             {
                 Debug.Log($"Placing enemy at ({targetRow}, {targetCol})");
                 GameObject newEnemy = Instantiate(EnemyPrefabs[Random.Range(0, EnemyPrefabs.Count)]);
@@ -222,13 +228,24 @@ public class EncounterMap : MonoBehaviour
         }
     }
 
+    public void ReduceEnemies()
+    {
+        numEnemies--;
+    }
+
+    private bool IsSpawnTooCloseToPlayer(Point point)
+    {
+        Point characterPos = this.character.GetComponent<CharacterControl>().GetPosition();
+        return DistanceUtils.PythagDistanceBetweenPoints(point, characterPos) < SPAWN_DISTANCE_THRESHOLD;
+    }
+
     /*
     Level Pooling
     */
 
     public string GetRandomLevel()
     {
-        int roll = rng.Next(100); // 0–99
+        int roll = rng.Next(100); // 0ï¿½99
 
         if (roll < 70) // 70% chance
         {

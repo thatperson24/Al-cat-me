@@ -7,7 +7,7 @@ using UnityEngine.Profiling;
 using UnityEngine.Scripting.APIUpdating;
 using Assets.Scripts.StateEffects;
 using Unity.VisualScripting;
-
+using TMPro;
 using Point = System.Drawing.Point;
 
 public class CharacterControl : MonoBehaviour
@@ -37,24 +37,28 @@ public class CharacterControl : MonoBehaviour
 
     private ElementalStateMachine elementalStateMachine;
 
-    // private TileState tileState;
-
     private string stateOfTile = " ";
     private MapTile tile;
 
-    public int movementPoints = 5;  //amount of actions the user can take
+    public int movementPoints;  //amount of actions the user can take
+    private TextMeshProUGUI movementGUITest;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private Combat combat;
+
+    void Awake()
     {
-        //PlaceCharacter(); //Currently just placing character at (5,8) but console states otherwise
+        movementPoints = 5;
+        movementGUITest = GameObject.Find("Movement Number").GetComponent<TextMeshProUGUI>();
+        movementGUITest.text = $"{movementPoints}";
+
+        combat = GameObject.Find("CombatMap").GetComponent<Combat>();
     }
 
     // Update is called once per frame
     void Update()
     {
         //This will only process one move at a time
-        if (!isMoving && !isLocked && movementPoints != 0)
+        if (!isMoving && !isLocked && movementPoints != 0 && this.encounterMap.turnTracker.IsPlayerTurn())
         {
             //Accomodate two different types of moving
             System.Func<KeyCode, bool> inputFunction;
@@ -112,14 +116,19 @@ public class CharacterControl : MonoBehaviour
                 movementPoints--;
             }
 
-            //Debug.Log("Characters on Tile: " + currentTile.GetComponent<MapTile>());
+            movementGUITest.text = $"{movementPoints}";
 
             if (movementPoints == 0)
             {
-                StartCoroutine(waitForEnemy(2f));
+                // Complete the player's turn
+                combat.DestroyAllSpells();
+                this.encounterMap.turnTracker.EndPlayerTurn();
+
+                StartCoroutine(waitForEnemy(1f));
+                combat.DrawCards(5);
             }
         }
-        //Might want to consider a confirm button
+        // Might want to consider a confirm button
     }
 
     private void AttemptMovement(int nextRow, int nextCol, Vector2 dir)
@@ -187,6 +196,7 @@ public class CharacterControl : MonoBehaviour
         yield return new WaitForSeconds(delayForEnemy);
         movementPoints = 5;
         Debug.Log("Enemies have attacked");
+        movementGUITest.text = $"{movementPoints}";
     }
 
     public void SetTile(MapTile tile)
@@ -197,5 +207,10 @@ public class CharacterControl : MonoBehaviour
     public Point GetPosition()
     {
         return this.tile.MyPosition;
+    }
+
+    public void SpendMovement(int cost)
+    {
+        movementPoints -= cost;
     }
 }

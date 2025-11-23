@@ -14,7 +14,9 @@ public class EnemyMovement : MonoBehaviour
     // Track movement state
     private bool IsMoving = false;
     private bool IsCoolingDown = true;
-    [SerializeField] private float moveDuration = 0.5f;//Time in seconds to move between one grid position to the next
+
+    // Time in seconds to move between one grid position to the next
+    [SerializeField] private float moveDuration = 0.2f;
     [SerializeField] private float moveDelay = 2f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -31,11 +33,15 @@ public class EnemyMovement : MonoBehaviour
             // Create the cooldown
             StartCoroutine(AwaitCooldown(moveDelay));
         }
-        else if (!IsMoving)
+        else if (!IsMoving && this.Map.turnTracker.IsEnemyTurn())
         {
-            // Move 1 square toward the player
-            List<Point> path = CalculatePathToPlayer();
-            FollowPathToPlayer(path);
+            CharacterControl characterControl = this.Map.GetCharacterControl();
+            if (!characterControl.isMoving)
+            {
+                // Move 1 square toward the player
+                List<Point> path = CalculatePathToPlayer();
+                FollowPathToPlayer(path);
+            }
         }
     }
 
@@ -86,9 +92,10 @@ public class EnemyMovement : MonoBehaviour
         {
             StartCoroutine(Move(dir));
             this.CurrentTile.MoveEntityToOtherMapTile(nextTile);
-            // this.CurrentTile = nextTile; // Can remove this now
+
+            // Update location of the enemy boi
             gameObject.transform.SetParent(nextTile.gameObject.transform);
-            gameObject.transform.localPosition = new Vector3(0, 0, -1); // TODO: refactor to be common
+            gameObject.transform.localPosition = new Vector3(0, 0, -1);
         }
 
         this.IsCoolingDown = true;
@@ -100,15 +107,16 @@ public class EnemyMovement : MonoBehaviour
         this.IsMoving = true;
 
         // Make a note of where we are and where we want to go
-        Vector2 startPos = transform.position;
-        Vector2 endPos = startPos + direction;
+        Vector3 startPos = transform.position;
+        Vector3 endPos = startPos + new Vector3(direction.x, direction.y, 0);
 
         float elaspedTime = 0;
         while (elaspedTime < moveDuration)
         {
             elaspedTime += Time.deltaTime;
             float percent = elaspedTime / moveDuration;
-            transform.position = Vector2.Lerp(startPos, endPos, percent);
+            transform.position = Vector3.Lerp(startPos, endPos, percent);
+
             yield return null;
         }
 
@@ -117,6 +125,7 @@ public class EnemyMovement : MonoBehaviour
 
         // We are no longer moving so we can accept another input
         this.IsMoving = false;
+        this.Map.turnTracker.EndEnemyTurn();
     }
 
     private IEnumerator AwaitCooldown(float delay)

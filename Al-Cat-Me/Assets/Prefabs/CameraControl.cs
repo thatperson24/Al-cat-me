@@ -22,8 +22,14 @@ public class CameraControl : MonoBehaviour
     void Update()
     {
         // Get input from Unity's Input system (WASD / Arrow keys)
-        float moveX = Input.GetAxisRaw("Horizontal"); // -1, 0, or 1
-        float moveY = Input.GetAxisRaw("Vertical");   // -1, 0, or 1
+        float moveX = 0; // -1, 0, or 1
+        float moveY = 0;   // -1, 0, or 1
+
+        if (Input.GetKey(KeyCode.UpArrow)) { moveY = 1f; }
+        else if (Input.GetKey(KeyCode.DownArrow)) { moveY = -1f; }
+
+        if (Input.GetKey(KeyCode.LeftArrow)) { moveX = -1f; }
+        else if (Input.GetKey(KeyCode.RightArrow)) { moveX = 1f; }
 
         // Normalize diagonal movement to prevent faster speed
         movement = new Vector2(moveX, moveY).normalized;

@@ -84,25 +84,25 @@ public class CharacterControl : MonoBehaviour
             //Checks for which movement the user is inputting        
 
             //Up Movement
-            if ((inputFunction(KeyCode.UpArrow) || inputFunction(KeyCode.W)) && (row + 1 < encounterMap.GetMapTiles().Length))
+            if ( inputFunction(KeyCode.W) && (row + 1 < encounterMap.GetMapTiles().Length))
             {
                 AttemptMovement(row + 1, col, Vector2.up);
             }
 
             //Down Movement
-            else if ((inputFunction(KeyCode.DownArrow) || inputFunction(KeyCode.S)) && (row > 0))
+            else if (inputFunction(KeyCode.S) && (row > 0))
             {
                 AttemptMovement(row - 1, col, Vector2.down);
             }
 
             //Left Movement
-            else if ((inputFunction(KeyCode.LeftArrow) || inputFunction(KeyCode.A)) && (col > 0))
+            else if (inputFunction(KeyCode.A) && (col > 0))
             {
                 AttemptMovement(row, col - 1, Vector2.left);
             }
 
             //Right Movement
-            else if ((inputFunction(KeyCode.RightArrow) || inputFunction(KeyCode.D)) && (col + 1 < encounterMap.GetMapTiles().Max(tileRow => tileRow.Length)))
+            else if ( inputFunction(KeyCode.D) && (col + 1 < encounterMap.GetMapTiles().Max(tileRow => tileRow.Length)))
             {
                 AttemptMovement(row, col + 1, Vector2.right);
             }

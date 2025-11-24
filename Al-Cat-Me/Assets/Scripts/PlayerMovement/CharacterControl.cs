@@ -10,6 +10,8 @@ using Unity.VisualScripting;
 using TMPro;
 using Point = System.Drawing.Point;
 
+using Math = System.Math;
+
 public class CharacterControl : MonoBehaviour
 {
     [SerializeField] private float _health = 20.0f;
@@ -19,6 +21,7 @@ public class CharacterControl : MonoBehaviour
         set
         {
             _health = value;
+            healthText.text = $"{Math.Truncate(value)}";
             Debug.Log($"New player health: {value}");
             if (value <= 0)
             {
@@ -60,11 +63,15 @@ public class CharacterControl : MonoBehaviour
 
     private Combat combat;
 
+    private TextMeshProUGUI healthText;
+    // [SerializeField] private Image healthImage;
+
     void Awake()
     {
         movementPoints = 5;
         movementGUITest = GameObject.Find("Movement Number").GetComponent<TextMeshProUGUI>();
         movementGUITest.text = $"{movementPoints}";
+        healthText = GameObject.Find("HealthText").GetComponent<TextMeshProUGUI>();
 
         combat = GameObject.Find("CombatMap").GetComponent<Combat>();
     }

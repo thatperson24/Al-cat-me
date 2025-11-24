@@ -172,7 +172,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 10b93e532ec001845b361b189debdf95, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 032c3b97fcd4a0946826778f0ed364f3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -197,6 +197,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MapTile
   state: 85
   spriteRenderer: {fileID: 6725146292767854338}
+  sprites:
+  - {fileID: 21300000, guid: 032c3b97fcd4a0946826778f0ed364f3, type: 3}
+  - {fileID: 21300000, guid: a72ae3c4015784a4893951556654a442, type: 3}
+  - {fileID: 21300000, guid: 3f7b6e51861902b4b921b5a6a4d8e180, type: 3}
+  - {fileID: 21300000, guid: a4983f31df289724f96f82ce79d6dbc0, type: 3}
+  - {fileID: 21300000, guid: 9cabf9548dec2164289f6c29015b1679, type: 3}
+  - {fileID: 21300000, guid: c107bba067759cc4489ff71ca663a85e, type: 3}
 --- !u!61 &3533393284149633206
 BoxCollider2D:
   m_ObjectHideFlags: 0

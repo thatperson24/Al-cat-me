@@ -1,11 +1,13 @@
 using Assets.Scripts.StateEffects;
 using UnityEngine;
 using System;
-
+using System.Collections.Generic;
+using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Drawing;
 using Color = UnityEngine.Color;
+using NUnit.Framework;
 
 public class MapTile : MonoBehaviour, IPointerClickHandler
 {
@@ -39,6 +41,7 @@ public class MapTile : MonoBehaviour, IPointerClickHandler
 
     [SerializeField] private char state;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private List<Sprite> sprites;
 
     private bool isIndicated;
     private Combat combat;
@@ -81,18 +84,18 @@ public class MapTile : MonoBehaviour, IPointerClickHandler
 
     private void ReRender()
     {
-        Color newColor = state switch
+        Sprite newSprite = state switch
         {
-            TileState.NORMAL => Color.green,
-            TileState.BURNING => Color.red,
-            TileState.TERRAIN => Color.brown,
-            TileState.MUDDY => Color.black,
-            TileState.WET => Color.blue,
-            TileState.ELECTRIFIED => Color.purple,
+            TileState.NORMAL => sprites[0],
+            TileState.BURNING => sprites[1],
+            TileState.TERRAIN => sprites[2],
+            TileState.MUDDY => sprites[3],
+            TileState.WET => sprites[4],
+            TileState.ELECTRIFIED => sprites[5],
             _ => throw new NotImplementedException($"Unrecognized tile state: {state}"),
         };
 
-        this.spriteRenderer.color = newColor;
+        this.spriteRenderer.sprite = newSprite;
     }
 
     public void ApplyElementalAction(ElementalState action)

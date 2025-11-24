@@ -29,4 +29,10 @@ public class OverMapTwo : MonoBehaviour
     {
         SceneManager.LoadScene("ShopScene");
     }
+
+    public void quitGame()
+    {
+        Debug.Log("quit button was pushed");
+        Application.Quit();
+    }
 }

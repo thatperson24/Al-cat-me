@@ -12,6 +12,21 @@ using Point = System.Drawing.Point;
 
 public class CharacterControl : MonoBehaviour
 {
+    [SerializeField] private float _health = 20.0f;
+    public float Health
+    {
+        get { return _health; }
+        set
+        {
+            _health = value;
+            Debug.Log($"New player health: {value}");
+            if (value <= 0)
+            {
+                Debug.Log("Player is dead.");
+            }
+        }
+    }
+
     public float movementSpeed = 5f;
     public Transform moveLocation;
 

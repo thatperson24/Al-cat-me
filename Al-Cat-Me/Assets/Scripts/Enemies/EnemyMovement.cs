@@ -36,11 +36,19 @@ public class EnemyMovement : MonoBehaviour
         else if (!IsMoving && this.Map.turnTracker.IsEnemyTurn())
         {
             CharacterControl characterControl = this.Map.GetCharacterControl();
-            if (!characterControl.isMoving)
+            List<Point> path = CalculatePathToPlayer();
+            // Check if we need to move
+            if (path.Count > 1)
             {
                 // Move 1 square toward the player
-                List<Point> path = CalculatePathToPlayer();
                 FollowPathToPlayer(path);
+            }
+            else
+            {
+                // Set up attack on the user
+                Debug.Log("Attacking the user");
+                characterControl.Health -= 2.0f;
+                this.Map.turnTracker.EndEnemyTurn();
             }
         }
     }
@@ -70,15 +78,14 @@ public class EnemyMovement : MonoBehaviour
         );
     }
 
+    /**
+     * Follows the given path toward the player. Assumes there are at least 2 entries in the list
+     */
     private void FollowPathToPlayer(List<Point> path)
     {
-        // Check if we need to move
-        if (path.Count > 1)
-        {
-            Point nextPoint = path[path.Count - 2]; // last item is current position
-            var delta = nextPoint - new Size(this.CurrentTile.MyPosition);
-            AttemptMovement(nextPoint.Y, nextPoint.X, new Vector2(delta.X, delta.Y));
-        }
+        Point nextPoint = path[1]; // first item is current position
+        var delta = nextPoint - new Size(this.CurrentTile.MyPosition);
+        AttemptMovement(nextPoint.Y, nextPoint.X, new Vector2(delta.X, delta.Y));
     }
 
     private void AttemptMovement(int nextRow, int nextCol, Vector2 dir)

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Overmap : MonoBehaviour
@@ -38,16 +39,25 @@ public class Overmap : MonoBehaviour
         switch (scenario)
         {
             case Scenario.combat:
+                SceneManager.LoadScene("CastSpells");
                 break;
             case Scenario.rest:
+                SceneManager.LoadScene("ShopScene");
                 break;  
             case Scenario.shop:
+                SceneManager.LoadScene("ShopScene");
                 break;  
             case Scenario.boss:
+                SceneManager.LoadScene("CastSpells");
                 break;
         }
     }
     
+    public void OnButtonClick()
+    {
+        SceneManager.LoadScene("CastSpells");
+    }
+
     public void DisableOtherStartingNodes(OvermapNode triggeringNode)
     {
         foreach (var node in StartingNodes)
@@ -59,4 +69,28 @@ public class Overmap : MonoBehaviour
             node.NodeButton.onClick.RemoveListener(() => DisableOtherStartingNodes(node));
         }
     }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        //if (scene.name == "OvermapScene")
+        //{
+        //    GenerateNewNodes();
+        //}
+    }
+
+    private void GenerateNewNodes()
+    {
+        // Example: clear old nodes and spawn new ones
+        foreach (var node in StartingNodes)
+        {
+            Destroy(node.gameObject);
+        }
+        StartingNodes.Clear();
+
+        // Instantiate new nodes however you want (prefabs, procedural, etc.)
+        // Example:
+        // var newNode = Instantiate(nodePrefab, somePosition, Quaternion.identity);
+        // StartingNodes.Add(newNode.GetComponent<OvermapNode>());
+    }
+
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using Mono.Cecil;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using System.Linq;
@@ -70,7 +71,7 @@ public class GameController : MonoBehaviour
     
     public void endEncounter()
     {
-        // overMap.finishEncounter();
+        SceneManager.LoadScene("overmapTemp");
     }
 
     private void GenerateBasicDeck()

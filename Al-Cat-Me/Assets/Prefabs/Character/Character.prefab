@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 10b93e532ec001845b361b189debdf95, type: 3}
+  m_Sprite: {fileID: -1108179349112285695, guid: 1d95cf6ac1fa28a40985a7fb2f371f4f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -107,3 +107,4 @@ MonoBehaviour:
   moveLocation: {fileID: 0}
   moveDuration: 0.1
   isMoving: 0
+  movementPoints: 5

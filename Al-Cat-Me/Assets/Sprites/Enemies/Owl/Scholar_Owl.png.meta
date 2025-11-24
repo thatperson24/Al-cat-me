@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8ba9a71d391414649ade9651d461f609
+guid: 64f667900de14ca4eb703b7bcefce47a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7896235607861349042
-    second: Guard_Dog_0
+      213: 1295424331116899586
+    second: Scholar_Owl_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,8 +49,8 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.5, y: 0.35}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Guard_Dog_0
+      name: Scholar_Owl_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 32
-        height: 26
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2bacd550370159d60800000000000000
-      internalID: 7896235607861349042
+      spriteID: 20dee91d0954af110800000000000000
+      internalID: 1295424331116899586
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Guard_Dog_0: 7896235607861349042
+      Scholar_Owl_0: 1295424331116899586
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

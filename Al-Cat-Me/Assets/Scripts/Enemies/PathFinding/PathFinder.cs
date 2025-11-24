@@ -39,10 +39,6 @@ namespace PathFinder
     /// </example>
     public class PathSolver : AStar<Point, Cost>
     {
-        // TODO: delete this since we only allow orthogonal movements
-        // private const int baseOrthogonalCost = 5;
-        // private const int baseDiagonalCost = 7;
-
         public Node? solution;
         private MapTile[][] gameMap;
         private int mapWidth;
@@ -51,12 +47,6 @@ namespace PathFinder
         private double proximityThreshold;
         private Point destination;
         private Dictionary<Point, Cost> closedList;
-
-        // TODO: delete this?
-        // public void PathFinder(MapTile[] gameMap)
-        // {
-        //     this.gameMap = gameMap;
-        // }
 
         public void Graph(
             MapTile[][] gameMap,
@@ -138,12 +128,6 @@ namespace PathFinder
             int dx = Math.Abs(destination.X - source.X);
             int dy = Math.Abs(destination.Y - source.Y);
             return dx + dy;
-
-            // TODO: delete logic that handles diagonals + orthogonal movement
-
-            // int diagonal = Math.Min(dx, dy);
-            // int orthogonal = dx + dy - 2 * diagonal;
-            // return diagonal * baseDiagonalCost + orthogonal * baseOrthogonalCost;
         }
 
         private static int GetCostToTraverseTile(MapTile tile)
@@ -154,15 +138,11 @@ namespace PathFinder
                 MapTile.TileState.MUDDY => 2,
                 _ => 1,
             };
-
-            // If we allowed diagonal movements, we would use something like this as a multiplier,
-            // where x/y are those used in AddNeighbors()
-            // ((x == 0 || y == 0) ? baseOrthogonalCost : baseDiagonalCost);
         }
 
         protected override bool IsDestination(Point position)
         {
-            double distance = GetDistance(position, destination);
+            double distance = DistanceUtils.PythagDistanceBetweenPoints(position, destination);
 
             bool isSolved = (position == destination)
                 || (distance < proximityThreshold && (position.X == destination.X || position.Y == destination.Y));

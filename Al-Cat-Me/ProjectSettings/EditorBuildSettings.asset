@@ -8,6 +8,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene1.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/overmapTemp.unity
+    guid: 8ce03077135d30547acac1e7046122f7
+  - enabled: 1
+    path: Assets/Scenes/CastSpells.unity
+    guid: 2572f8b061dad6a46bafe8edc36db81b
+  - enabled: 1
+    path: Assets/Scenes/ShopScene.unity
+    guid: f9df33ac225beb445b5ade68951fcf68
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

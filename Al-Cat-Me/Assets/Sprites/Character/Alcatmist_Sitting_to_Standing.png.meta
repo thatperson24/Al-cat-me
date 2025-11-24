@@ -1,0 +1,1068 @@
+fileFormatVersion: 2
+guid: 61ee37b28da8ce64b949d8b16c127f8d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1919156925682006003
+    second: Alcatmist_Sitting_to_Standing_0
+  - first:
+      213: 49798037526401224
+    second: Alcatmist_Sitting_to_Standing_1
+  - first:
+      213: -6125950010191709279
+    second: Alcatmist_Sitting_to_Standing_2
+  - first:
+      213: 1172579964923885003
+    second: Alcatmist_Sitting_to_Standing_3
+  - first:
+      213: 8797200885069102384
+    second: Alcatmist_Sitting_to_Standing_4
+  - first:
+      213: 1269462070227655454
+    second: Alcatmist_Sitting_to_Standing_5
+  - first:
+      213: 4183622724924011590
+    second: Alcatmist_Sitting_to_Standing_6
+  - first:
+      213: 1303962996666198105
+    second: Alcatmist_Sitting_to_Standing_7
+  - first:
+      213: 7110541038493748126
+    second: Alcatmist_Sitting_to_Standing_8
+  - first:
+      213: -6323620724523879715
+    second: Alcatmist_Sitting_to_Standing_9
+  - first:
+      213: 7148159879093888260
+    second: Alcatmist_Sitting_to_Standing_10
+  - first:
+      213: -1862377714313248592
+    second: Alcatmist_Sitting_to_Standing_11
+  - first:
+      213: 4755868805681834797
+    second: Alcatmist_Sitting_to_Standing_12
+  - first:
+      213: -6733444096906126667
+    second: Alcatmist_Sitting_to_Standing_13
+  - first:
+      213: -1665233559611107578
+    second: Alcatmist_Sitting_to_Standing_14
+  - first:
+      213: 4539662494586871528
+    second: Alcatmist_Sitting_to_Standing_15
+  - first:
+      213: 4614530668201923340
+    second: Alcatmist_Sitting_to_Standing_16
+  - first:
+      213: 5937090678136909368
+    second: Alcatmist_Sitting_to_Standing_17
+  - first:
+      213: 6984693874878214374
+    second: Alcatmist_Sitting_to_Standing_18
+  - first:
+      213: 3748874691426786349
+    second: Alcatmist_Sitting_to_Standing_19
+  - first:
+      213: -6621351123400230779
+    second: Alcatmist_Sitting_to_Standing_20
+  - first:
+      213: -2096785914371905560
+    second: Alcatmist_Sitting_to_Standing_21
+  - first:
+      213: -2272139433218305067
+    second: Alcatmist_Sitting_to_Standing_22
+  - first:
+      213: -5244048298618961343
+    second: Alcatmist_Sitting_to_Standing_23
+  - first:
+      213: 2310595307734670062
+    second: Alcatmist_Sitting_to_Standing_24
+  - first:
+      213: 5614811918154057513
+    second: Alcatmist_Sitting_to_Standing_25
+  - first:
+      213: -8600888863518875599
+    second: Alcatmist_Sitting_to_Standing_26
+  - first:
+      213: -6031786883221638482
+    second: Alcatmist_Sitting_to_Standing_27
+  - first:
+      213: -7733116820287810929
+    second: Alcatmist_Sitting_to_Standing_28
+  - first:
+      213: -299327993306956600
+    second: Alcatmist_Sitting_to_Standing_29
+  - first:
+      213: 1990839369587678094
+    second: Alcatmist_Sitting_to_Standing_30
+  - first:
+      213: -7210751788443099240
+    second: Alcatmist_Sitting_to_Standing_31
+  - first:
+      213: -3386892163405637111
+    second: Alcatmist_Sitting_to_Standing_32
+  - first:
+      213: 5806622391325742665
+    second: Alcatmist_Sitting_to_Standing_33
+  - first:
+      213: 4318172873607586505
+    second: Alcatmist_Sitting_to_Standing_34
+  - first:
+      213: 4598742871143985026
+    second: Alcatmist_Sitting_to_Standing_35
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d084e78b1f8cd55e0800000000000000
+      internalID: -1919156925682006003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c0d5412d0be0b000800000000000000
+      internalID: 49798037526401224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1abf8b22ce04cfaa0800000000000000
+      internalID: -6125950010191709279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc53708f347d54010800000000000000
+      internalID: 1172579964923885003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03dbb4c689fe51a70800000000000000
+      internalID: 8797200885069102384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1b50c7e6090e9110800000000000000
+      internalID: 1269462070227655454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 644f859d3b63f0a30800000000000000
+      internalID: 4183622724924011590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_7
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 958ea80df6b981210800000000000000
+      internalID: 1303962996666198105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_8
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9bc148b667bda260800000000000000
+      internalID: 7110541038493748126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_9
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd2b47c747cfd38a0800000000000000
+      internalID: -6323620724523879715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_10
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4052717998d533360800000000000000
+      internalID: 7148159879093888260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_11
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b041cc06518726e0800000000000000
+      internalID: -1862377714313248592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_12
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2be6092b7d300240800000000000000
+      internalID: 4755868805681834797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_13
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ba95f8e4400e82a0800000000000000
+      internalID: -6733444096906126667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_14
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 607125b76e6e3e8e0800000000000000
+      internalID: -1665233559611107578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_15
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ee93069cfe100f30800000000000000
+      internalID: 4539662494586871528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_16
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c035253a13b1a0040800000000000000
+      internalID: 4614530668201923340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_17
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83e22a50488c46250800000000000000
+      internalID: 5937090678136909368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_18
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e076fc921e9ee060800000000000000
+      internalID: 6984693874878214374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_19
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2c12f16bada60430800000000000000
+      internalID: 3748874691426786349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_20
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58878941c3c3c14a0800000000000000
+      internalID: -6621351123400230779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_21
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e7e1d3f158b6e2e0800000000000000
+      internalID: -2096785914371905560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_22
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d39dda493db770e0800000000000000
+      internalID: -2272139433218305067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_23
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14243d74bd56937b0800000000000000
+      internalID: -5244048298618961343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_24
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eea9539b032e01020800000000000000
+      internalID: 2310595307734670062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_25
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 927c336e0b1dbed40800000000000000
+      internalID: 5614811918154057513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_26
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1302859e52183a880800000000000000
+      internalID: -8600888863518875599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_27
+      rect:
+        serializedVersion: 2
+        x: 864
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea2b6b899c9ca4ca0800000000000000
+      internalID: -6031786883221638482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_28
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f82952849337ea490800000000000000
+      internalID: -7733116820287810929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_29
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ccbb97a6c298dbf0800000000000000
+      internalID: -299327993306956600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_30
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8bd225dbd1e0ab10800000000000000
+      internalID: 1990839369587678094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_31
+      rect:
+        serializedVersion: 2
+        x: 992
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89f165ed3734eeb90800000000000000
+      internalID: -7210751788443099240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_32
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90a17ab95875ff0d0800000000000000
+      internalID: -3386892163405637111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_33
+      rect:
+        serializedVersion: 2
+        x: 1056
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 946dcc3dc44459050800000000000000
+      internalID: 5806622391325742665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_34
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c2ab12995b3deb30800000000000000
+      internalID: 4318172873607586505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alcatmist_Sitting_to_Standing_35
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28fa5efa64402df30800000000000000
+      internalID: 4598742871143985026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 53eebc5eb0dd4924982f2739ec42c233
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":36.0,"y":1.0},"gridSpriteSize":{"x":32.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Alcatmist_Sitting_to_Standing_0: -1919156925682006003
+      Alcatmist_Sitting_to_Standing_1: 49798037526401224
+      Alcatmist_Sitting_to_Standing_10: 7148159879093888260
+      Alcatmist_Sitting_to_Standing_11: -1862377714313248592
+      Alcatmist_Sitting_to_Standing_12: 4755868805681834797
+      Alcatmist_Sitting_to_Standing_13: -6733444096906126667
+      Alcatmist_Sitting_to_Standing_14: -1665233559611107578
+      Alcatmist_Sitting_to_Standing_15: 4539662494586871528
+      Alcatmist_Sitting_to_Standing_16: 4614530668201923340
+      Alcatmist_Sitting_to_Standing_17: 5937090678136909368
+      Alcatmist_Sitting_to_Standing_18: 6984693874878214374
+      Alcatmist_Sitting_to_Standing_19: 3748874691426786349
+      Alcatmist_Sitting_to_Standing_2: -6125950010191709279
+      Alcatmist_Sitting_to_Standing_20: -6621351123400230779
+      Alcatmist_Sitting_to_Standing_21: -2096785914371905560
+      Alcatmist_Sitting_to_Standing_22: -2272139433218305067
+      Alcatmist_Sitting_to_Standing_23: -5244048298618961343
+      Alcatmist_Sitting_to_Standing_24: 2310595307734670062
+      Alcatmist_Sitting_to_Standing_25: 5614811918154057513
+      Alcatmist_Sitting_to_Standing_26: -8600888863518875599
+      Alcatmist_Sitting_to_Standing_27: -6031786883221638482
+      Alcatmist_Sitting_to_Standing_28: -7733116820287810929
+      Alcatmist_Sitting_to_Standing_29: -299327993306956600
+      Alcatmist_Sitting_to_Standing_3: 1172579964923885003
+      Alcatmist_Sitting_to_Standing_30: 1990839369587678094
+      Alcatmist_Sitting_to_Standing_31: -7210751788443099240
+      Alcatmist_Sitting_to_Standing_32: -3386892163405637111
+      Alcatmist_Sitting_to_Standing_33: 5806622391325742665
+      Alcatmist_Sitting_to_Standing_34: 4318172873607586505
+      Alcatmist_Sitting_to_Standing_35: 4598742871143985026
+      Alcatmist_Sitting_to_Standing_4: 8797200885069102384
+      Alcatmist_Sitting_to_Standing_5: 1269462070227655454
+      Alcatmist_Sitting_to_Standing_6: 4183622724924011590
+      Alcatmist_Sitting_to_Standing_7: 1303962996666198105
+      Alcatmist_Sitting_to_Standing_8: 7110541038493748126
+      Alcatmist_Sitting_to_Standing_9: -6323620724523879715
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

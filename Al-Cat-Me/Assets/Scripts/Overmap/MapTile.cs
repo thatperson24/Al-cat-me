@@ -1,31 +1,32 @@
 using Assets.Scripts.StateEffects;
 using UnityEngine;
 using System;
-
+using System.Collections.Generic;
+using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Drawing;
 using Color = UnityEngine.Color;
+using NUnit.Framework;
 
 public class MapTile : MonoBehaviour, IPointerClickHandler
 {
     public static class TileState
     {
-        public const char UNOCCUPIED = 'U';
-        public const char OCCUPIED = 'O';
+        public const char NORMAL = 'N';
         public const char BURNING = 'B';
         public const char TERRAIN = 'T';
         public const char MUDDY = 'M';
         public const char WET = 'W';
         public const char ELECTRIFIED = 'E';
 
-        public static readonly char[] Entries = { UNOCCUPIED, OCCUPIED, BURNING, TERRAIN, MUDDY, WET, ELECTRIFIED };
+        public static readonly char[] Entries = { NORMAL, BURNING, TERRAIN, MUDDY, WET, ELECTRIFIED };
 
         public static bool CanBeOccupied(char tileState)
         {
             return tileState switch
             {
-                TERRAIN or OCCUPIED => false,
+                TERRAIN => false,
                 _ => true,
             };
         }
@@ -40,6 +41,7 @@ public class MapTile : MonoBehaviour, IPointerClickHandler
 
     [SerializeField] private char state;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private List<Sprite> sprites;
 
     private bool isIndicated;
     private Combat combat;
@@ -82,32 +84,18 @@ public class MapTile : MonoBehaviour, IPointerClickHandler
 
     private void ReRender()
     {
-        Color newColor = state switch
+        Sprite newSprite = state switch
         {
-            TileState.UNOCCUPIED => Color.green,
-            TileState.OCCUPIED => Color.yellow,
-            TileState.BURNING => Color.red,
-            TileState.TERRAIN => Color.brown,
-            TileState.MUDDY => Color.black,
-            TileState.WET => Color.blue,
-            TileState.ELECTRIFIED => Color.purple,
+            TileState.NORMAL => sprites[0],
+            TileState.BURNING => sprites[1],
+            TileState.TERRAIN => sprites[2],
+            TileState.MUDDY => sprites[3],
+            TileState.WET => sprites[4],
+            TileState.ELECTRIFIED => sprites[5],
             _ => throw new NotImplementedException($"Unrecognized tile state: {state}"),
         };
 
-        if (this.IsOccupied && this.state == TileState.TERRAIN)
-        {
-            this.spriteRenderer.color = Color.brown;
-        }
-
-        else if (this.IsOccupied)
-        {
-            // TODO: render enemy on the square
-            this.spriteRenderer.color = Color.hotPink;
-        }
-        else
-        {
-            this.spriteRenderer.color = newColor;
-        }
+        this.spriteRenderer.sprite = newSprite;
     }
 
     public void ApplyElementalAction(ElementalState action)
@@ -120,7 +108,7 @@ public class MapTile : MonoBehaviour, IPointerClickHandler
     {
         return aState switch
         {
-            TileState.UNOCCUPIED or TileState.OCCUPIED => ElementalState.X,
+            TileState.NORMAL => ElementalState.X,
             TileState.BURNING => ElementalState.Fire,
             TileState.TERRAIN => ElementalState.Earth,
             TileState.MUDDY => ElementalState.Earth, // TODO: add Muddy element state
@@ -137,9 +125,9 @@ public class MapTile : MonoBehaviour, IPointerClickHandler
             ElementalState.Fire => TileState.BURNING,
             ElementalState.Lightning => TileState.ELECTRIFIED,
             ElementalState.Water => TileState.WET,
-            ElementalState.Air => TileState.UNOCCUPIED, // TODO: actually return GUSTY or something
+            ElementalState.Air => TileState.NORMAL, // TODO: actually return GUSTY or something
             ElementalState.Earth => TileState.TERRAIN,
-            ElementalState.X => TileState.UNOCCUPIED,
+            ElementalState.X => TileState.NORMAL,
             _ => throw new NotImplementedException($"Unrecognized elemental action: {action}"),
         };
     }
@@ -176,7 +164,10 @@ public class MapTile : MonoBehaviour, IPointerClickHandler
 
     public void SetEntity(GameObject entity)
     {
-        entity.GetComponent<EnemyMovement>().SetCurrentTile(this);
+        if (entity != null)
+        {
+            entity.GetComponent<EnemyMovement>().SetCurrentTile(this);
+        }
         this.EnemyEntity = entity;
         ReRender();
     }
@@ -188,8 +179,7 @@ public class MapTile : MonoBehaviour, IPointerClickHandler
 
     public bool IsOccupied
     {
-        // TODO: Remove OCCUPIED state if we don't really need it
-        get => this.EnemyEntity != null || this.state == TileState.OCCUPIED || this.state == TileState.TERRAIN;
+        get => this.EnemyEntity != null || !TileState.CanBeOccupied(this.state);
     }
 
     public void MoveEntityToOtherMapTile(MapTile other)

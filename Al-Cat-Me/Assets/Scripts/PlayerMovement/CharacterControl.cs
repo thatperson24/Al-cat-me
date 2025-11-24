@@ -10,8 +10,26 @@ using Unity.VisualScripting;
 using TMPro;
 using Point = System.Drawing.Point;
 
+using Math = System.Math;
+
 public class CharacterControl : MonoBehaviour
 {
+    [SerializeField] private float _health = 20.0f;
+    public float Health
+    {
+        get { return _health; }
+        set
+        {
+            _health = value;
+            healthText.text = $"{Math.Truncate(value)}";
+            Debug.Log($"New player health: {value}");
+            if (value <= 0)
+            {
+                Debug.Log("Player is dead.");
+            }
+        }
+    }
+
     public float movementSpeed = 5f;
     public Transform moveLocation;
 
@@ -45,11 +63,15 @@ public class CharacterControl : MonoBehaviour
 
     private Combat combat;
 
+    private TextMeshProUGUI healthText;
+    // [SerializeField] private Image healthImage;
+
     void Awake()
     {
         movementPoints = 5;
         movementGUITest = GameObject.Find("Movement Number").GetComponent<TextMeshProUGUI>();
         movementGUITest.text = $"{movementPoints}";
+        healthText = GameObject.Find("HealthText").GetComponent<TextMeshProUGUI>();
 
         combat = GameObject.Find("CombatMap").GetComponent<Combat>();
     }
@@ -69,25 +91,25 @@ public class CharacterControl : MonoBehaviour
             //Checks for which movement the user is inputting        
 
             //Up Movement
-            if ((inputFunction(KeyCode.UpArrow) || inputFunction(KeyCode.W)) && (row + 1 < encounterMap.GetMapTiles().Length))
+            if ( inputFunction(KeyCode.W) && (row + 1 < encounterMap.GetMapTiles().Length))
             {
                 AttemptMovement(row + 1, col, Vector2.up);
             }
 
             //Down Movement
-            else if ((inputFunction(KeyCode.DownArrow) || inputFunction(KeyCode.S)) && (row > 0))
+            else if (inputFunction(KeyCode.S) && (row > 0))
             {
                 AttemptMovement(row - 1, col, Vector2.down);
             }
 
             //Left Movement
-            else if ((inputFunction(KeyCode.LeftArrow) || inputFunction(KeyCode.A)) && (col > 0))
+            else if (inputFunction(KeyCode.A) && (col > 0))
             {
                 AttemptMovement(row, col - 1, Vector2.left);
             }
 
             //Right Movement
-            else if ((inputFunction(KeyCode.RightArrow) || inputFunction(KeyCode.D)) && (col + 1 < encounterMap.GetMapTiles().Max(tileRow => tileRow.Length)))
+            else if ( inputFunction(KeyCode.D) && (col + 1 < encounterMap.GetMapTiles().Max(tileRow => tileRow.Length)))
             {
                 AttemptMovement(row, col + 1, Vector2.right);
             }
@@ -136,7 +158,7 @@ public class CharacterControl : MonoBehaviour
         MapTile nextTile = encounterMap.GetMapTiles()[nextRow][nextCol];
         if (nextTile.IsOccupied == true)
         {
-            Debug.Log("There is a occupied block above");
+            Debug.Log("Character tried to move into an occupied block");
         }
         else
         {

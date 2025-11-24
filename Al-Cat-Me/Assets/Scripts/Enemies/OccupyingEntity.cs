@@ -41,6 +41,18 @@ public static class OccupyingEntity
             cost = closedList[position];
         } while (cost.parentIndex >= 0);
 
+        if (result.Count == 2)
+        {
+            // Hardcode fix to bug, e.g. (10, 1) -> (10, 1)
+            if (result[0] == result[1])
+            {
+                result.RemoveAt(0);
+            }
+        }
+
+        // Nodes are listed in reverse (destination -> source) so reverse it
+        result.Reverse();
+
         Debug.Log($"Found path: {string.Join(" -> ", result)}");
         return result;
     }

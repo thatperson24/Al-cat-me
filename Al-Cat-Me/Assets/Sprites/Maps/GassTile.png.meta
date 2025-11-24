@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 64f667900de14ca4eb703b7bcefce47a
+guid: 032c3b97fcd4a0946826778f0ed364f3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1295424331116899586
-    second: Scholar_Owl_0
+      213: 868847104045629250
+    second: GassTile_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,7 +113,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Scholar_Owl_0
+      name: GassTile_0
       rect:
         serializedVersion: 2
         x: 0
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 20dee91d0954af110800000000000000
-      internalID: 1295424331116899586
+      spriteID: 24f34c876d3ce0c00800000000000000
+      internalID: 868847104045629250
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Scholar_Owl_0: 1295424331116899586
+      GassTile_0: 868847104045629250
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -7,7 +7,7 @@ public class MapGridEditor : EditorWindow
     private int width = 15;
     private int height = 15;
     private char[,] grid;
-    private char currentTile = 'U'; // tile type to paint
+    private char currentTile = MapTile.TileState.NORMAL; // tile type to paint
     private string inputString = "";
 
     private Vector2 scrollPos;

@@ -45,6 +45,7 @@ namespace PathFinder
         private int mapHeight;
         /** How close the enemy needs to get to user to be "close enough" to attack */
         private double proximityThreshold;
+        private Point source;
         private Point destination;
         private Dictionary<Point, Cost> closedList;
 
@@ -62,8 +63,8 @@ namespace PathFinder
             this.mapWidth = gameMap[0].Length; // TODO: update this if we have variable width rows
             this.proximityThreshold = proximityThreshold;
             this.closedList = closedList;
+            this.source = source;
             this.destination = destination;
-            // destination = new Point(mapWidth - 1, mapHeight - 1);
             this.Graph(
                 new Node(
                     source,
@@ -88,6 +89,10 @@ namespace PathFinder
          */
         public Point ToPosition(int index)
         {
+            if (index == -1)
+            {
+                return this.source;
+            }
             return new Point(index % mapWidth, index / mapWidth);
         }
         protected override void AddNeighbours(Node node, PriorityQueue<Node> openList)
